@@ -1,0 +1,62 @@
+﻿@page "{gcc}/{month:int}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h2>Results for @Model.Gcc (@Model.Month)</h2>
+
+<table class="table">
+    <thead>
+        <tr><th>Nr</th>
+            @foreach(var x in @Model.oh.DayNumbers)
+         {<th>@x</th>}
+        
+        </tr>
+    </thead>
+<tbody>
+    <tr><td>Day</td>
+       @foreach(var x in @Model.oh.DayNames)
+         {<td>@x</td>}
+    </tr>
+        <tr><td>Score</td>
+        @{ int i = 0; }    
+        @foreach(var x in @Model.oh.DayScore)
+         {
+              i++;
+            <td><a asp-page="/BL/Details" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month" asp-route-day="@i">@x</a></td>}</td>
+    </tr>
+         <tr><td>Percentage</td>
+        
+        @foreach(var x in @Model.oh.DayPercentage)
+         {
+          
+            @if(@x == 0) { 
+                <td class="red">@x</td> 
+            } else if (@x > 0 && @x < 60) { 
+                <td class="amber">@x</td> 
+                } else { 
+                <td class="green">@x</td> 
+            }
+            
+         }
+    </tr>
+</tbody>
+
+</table>
+
+
+<table class="table"> 
+    <thead>
+        <tr><th>Criteria</th><th>Penalty</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Weekend</td><td>-@Model.sc.Weekend</td></tr>
+         <tr><td>Cut-off</td><td>-@Model.sc.CutOff</td></tr>
+          <tr><td>Pay date</td><td>-@Model.sc.PayDate</td></tr>
+          <tr><td>Free slot</td><td>@Model.sc.Free</td></tr>
+    </tbody>
+</table>
+
+
+<a asp-page="/BL/Overview">Back to overview</a>

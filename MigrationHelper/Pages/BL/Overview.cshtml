@@ -1,0 +1,40 @@
+﻿@page 
+@model OverviewModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+Overview
+
+
+
+<table class="table">
+<thead>
+    <tr>
+    <th>
+        Gcc</th>
+        <th>August</th>
+        <th>September</th>
+        <th>October</th>
+        <th>November</th>
+        <th>December</th>
+    </th>
+    </tr>
+</thead>
+<tbody>
+        @foreach(var x in @Model.Gccs)
+         {
+             <tr>
+            <td>@x</td>
+            @foreach(var y in @Model.Months) {
+            <td>
+                <a asp-page="/BL/Index" asp-route-gcc="@x" asp-route-month="@y">Calendar</a>
+            </td>
+            }
+            </tr>
+        }
+    </tr>
+      
+</tbody>
+
+</table>

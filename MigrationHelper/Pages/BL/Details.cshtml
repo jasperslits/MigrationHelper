@@ -1,0 +1,28 @@
+﻿@page "{gcc}/{month:int}/{day:int}"
+@model DetailModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h2>Details for @Model.Gcc | 2024-@Model.Month-@Model.Day</h2>
+
+Score breakdown
+
+<table class="table">
+<thead>
+  <tr>
+  <th>Details</th>
+  </tr>
+</thead>
+<tbody>
+    
+       @foreach(var x in @Model.Details)
+         {<tr><td>@x</td></tr>}
+    
+      
+    
+</tbody>
+
+</table>
+
+<a asp-page="/BL/Index" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month">Back</a>

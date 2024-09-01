@@ -1,0 +1,29 @@
+﻿@page "{gcc}/{month:int}"
+@model PayGroupDetails
+@{
+    ViewData["Title"] = "Home page";
+}
+
+Results for @Model.Gcc (@Model.Month)
+
+
+
+<table class="table">
+  
+<tbody>
+    
+       @foreach(var x in @Model.Results)
+         {
+            <tr><td>@x.Lcc</td><td>@x.PayGroup</td>
+         @foreach(var y in @Model.Cal) {
+            <td>@y.Key</td>
+         }
+         </tr>
+         }
+    
+      
+</tbody>
+
+</table>
+
+<a asp-page="/BL/Overview">Back to overview</a>
