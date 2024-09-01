@@ -12,7 +12,7 @@ public class MigHelperCtx : DbContext
          public MigHelperCtx()
     {
         DbPath =  "MigHelper.db";
-        Console.WriteLine($"path {DbPath}");
+      
     }
 
         public MigHelperCtx (DbContextOptions<MigHelperCtx> options)

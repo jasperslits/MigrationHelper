@@ -28,6 +28,7 @@ public class PayGroupDetails : PageModel
 
     public string FormatCell(int day,PayPeriod p)
     {
+    
         if (day == p.PayDate.Day) return "Paydate";
         if (day == p.CutOff.Day) return "CutOff";
         if (p.Open.Day >= day && day <= p.CutOff.Day) return "Open";
