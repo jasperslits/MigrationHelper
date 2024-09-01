@@ -1,10 +1,40 @@
-﻿@page
+﻿@page 
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>GCC overview</h2>
+
+
+
+<table class="table">
+<thead>
+    <tr>
+    <th>
+        Gcc</th>
+        <th>August</th>
+        <th>September</th>
+        <th>October</th>
+        <th>November</th>
+        <th>December</th>
+    </th>
+    </tr>
+</thead>
+<tbody>
+        @foreach(var x in @Model.Gccs)
+         {
+             <tr>
+            <td>@x</td>
+            @foreach(var y in @Model.Months) {
+            <td>
+                <a asp-page="/GccView" asp-route-gcc="@x" asp-route-month="@y">Calendar</a>
+            </td>
+            }
+            </tr>
+        }
+    </tr>
+      
+</tbody>
+
+</table>

@@ -43,7 +43,7 @@ public class MigHelper
         DateTime pStart = new DateTime(2024, month, 1, 0, 0, 0);
         DateTime pEnd = new DateTime(2024, month, DateTime.DaysInMonth(2024, month), 0, 0, 0);
         var b = context.PayPeriods.Where(x => x.Gcc == Gcc && pStart >= x.Open).ToList();
-        Console.WriteLine($"Found PayPeriods {b.Count} records");
+       // Console.WriteLine($"Found PayPeriods {b.Count} records");
 
         List<PayPeriodGcc> x = b.DistinctBy(x => x.PayGroup).Select(o => new PayPeriodGcc
         {
@@ -55,7 +55,7 @@ public class MigHelper
             CutOff = o.CutOff
         }).ToList();
         pg = x;
-        Console.WriteLine($"Found PayPeriodGcc {x.Count} records");
+       // Console.WriteLine($"Found PayPeriodGcc {x.Count} records");
     }
 }
 

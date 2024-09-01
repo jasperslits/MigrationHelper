@@ -1,5 +1,5 @@
 ﻿@page "{gcc}/{month:int}"
-@model IndexModel
+@model GccViewModel
 @{
     ViewData["Title"] = "Home page";
 }
@@ -24,7 +24,7 @@
         @foreach(var x in @Model.oh.DayScore)
          {
               i++;
-            <td><a asp-page="/BL/Details" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month" asp-route-day="@i">@x</a></td>}</td>
+            <td><a asp-page="/Details" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month" asp-route-day="@i">@x</a></td>}</td>
     </tr>
          <tr><td>Percentage</td>
         
@@ -59,4 +59,4 @@
 </table>
 
 
-<a asp-page="/BL/Overview">Back to overview</a>
+<a asp-page="/Index">Back to overview</a>

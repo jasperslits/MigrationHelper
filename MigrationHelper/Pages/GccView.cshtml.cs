@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MigrationHelper.Models;
 
-namespace MigrationHelper.Pages.BL;
+namespace MigrationHelper.Pages;
 
-public class IndexModel : PageModel
+public class GccViewModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
+    private readonly ILogger<GccViewModel> _logger;
 
     public OutputHelper oh {get;set;}
 
@@ -21,7 +21,7 @@ public class IndexModel : PageModel
 
     
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public GccViewModel(ILogger<GccViewModel> logger)
     {
         _logger = logger;
     }

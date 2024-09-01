@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MigrationHelper.Helpers.Init;
 
-namespace MigrationHelper.Pages.BL;
+namespace MigrationHelper.Pages;
 
 public class LoadModel : PageModel
 {

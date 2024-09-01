@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MigrationHelper.Models;
 
-namespace MigrationHelper.Pages.BL;
+namespace MigrationHelper.Pages;
 
 public class DetailModel : PageModel
 {
