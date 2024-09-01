@@ -3,6 +3,17 @@ namespace MigrationHelper.Models;
 
 using MigrationHelper.Db;
 
+public static class Toolbox 
+{
+
+    public static string MonthToName(int month) {
+        return new DateTime(2024, month, 1).ToString("MMMM yyyy");
+    }
+
+     public static string DayToName(int month,int day) {
+        return new DateTime(2024, month, day).ToString("dd MMMM yyyy");
+    }
+}
 
 public class CalDay
 {
@@ -177,17 +188,17 @@ public class Helper
                     c[a.Key].Score -= sc.CutOff;
                     c[a.Key].Details.Add($"Cut off date for {p.PayGroup}");
                     if (a.Key != 1) {
-                    c[a.Key - 1].Score -= sc.CutOff;
-                    c[a.Key - 1].Details.Add($"Cut off -1 date for {p.PayGroup}");
+               //     c[a.Key - 1].Score -= sc.CutOff;
+               //     c[a.Key - 1].Details.Add($"Cut off -1 date for {p.PayGroup}");
                     }
                 }
                 if (p.PayDate.Day == dt.Day)
                 {
                     c[a.Key].Score -= sc.PayDate;
                     c[a.Key].Details.Add($"Pay date for {p.PayGroup}");
-                    if (a.Key != 1) {
-                    c[a.Key - 1].Score -= sc.PayDate;
-                    c[a.Key - 1].Details.Add($"Pay date -1 for {p.PayGroup}");
+                    if (a.Key != nrdays) {
+                    c[a.Key + 1].Score -= sc.NextPayDate;
+                    c[a.Key + 1].Details.Add($"Pay date +1 for {p.PayGroup}");
                     }
                 }
 
@@ -206,8 +217,9 @@ public class Helper
         {
             if (c[a.Key].Score > 0)
             {
-                c[a.Key].Percentage = (int)Math.Ceiling(c[a.Key].Score / maxScore * 1.0) * 100;
-
+                double res = (c[a.Key].Score *1.0 / maxScore*1.0)*100;
+                c[a.Key].Percentage = (int)Math.Ceiling(res);
+        
                 if (a.Key + 1 < nrdays && c[a.Key + 1].Score <= 0)
                 {
                     c[a.Key].Percentage = 20;

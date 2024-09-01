@@ -19,6 +19,8 @@ public class DetailModel : PageModel
 
     public int Day { get; set; }
 
+    public string FormattedDay { get; set; } = "";
+
     public DetailModel(ILogger<DetailModel> logger)
     {
         _logger = logger;
@@ -32,6 +34,7 @@ public class DetailModel : PageModel
         Gcc = gcc;
         Month = month;
         Day = day;
+        FormattedDay = Toolbox.DayToName(month,day);
         var f = res.Where(x => x.Key == day).Select(x => x.Value.Details).ToList();
         f[0].Sort();
         Details = f[0];

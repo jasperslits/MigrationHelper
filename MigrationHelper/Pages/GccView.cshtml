@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home page";
 }
 
-<h2>Results for @Model.Gcc (@Model.Month)</h2>
+<h2>Results for @Model.Gcc (@Model.MonthName)</h2>
 
 <table class="table">
     <thead>
@@ -52,9 +52,10 @@
     </thead>
     <tbody>
         <tr><td>Weekend</td><td>-@Model.sc.Weekend</td></tr>
-         <tr><td>Cut-off</td><td>-@Model.sc.CutOff</td></tr>
-          <tr><td>Pay date</td><td>-@Model.sc.PayDate</td></tr>
-          <tr><td>Free slot</td><td>@Model.sc.Free</td></tr>
+        <tr><td>Cut-off</td><td>-@Model.sc.CutOff</td></tr>
+        <tr><td>Pay date</td><td>-@Model.sc.PayDate</td></tr>
+        <tr><td>Pay date +1</td><td>-@Model.sc.NextPayDate</td></tr>
+        <tr><td>Free slot</td><td>@Model.sc.Free</td></tr>
     </tbody>
 </table>
 

@@ -19,7 +19,7 @@ public class GccViewModel : PageModel
 
     public int Month { get;set; } = 1 ;
 
-    
+    public string MonthName { get; set;}
 
     public GccViewModel(ILogger<GccViewModel> logger)
     {
@@ -35,6 +35,7 @@ public class GccViewModel : PageModel
         oh = new(h.c);
         Gcc = gcc;
         Month = month;
+        MonthName = Toolbox.MonthToName(month);
      //   Month = res[
 
     }

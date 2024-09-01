@@ -9,5 +9,7 @@ public class ScoreConfiguration
     public int CutOff { get; set; } = 2;
     public int PayDate { get; set; } = 2;
 
+    public int NextPayDate { get; set; } = 1;
+
     public int Free {get;set; } = 4;
 }
