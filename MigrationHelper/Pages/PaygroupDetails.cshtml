@@ -4,19 +4,24 @@
     ViewData["Title"] = "Home page";
 }
 
-Results for @Model.Gcc (@Model.Month)
-
-
+<h2>Payroll calendar for @Model.Gcc (@Model.FormattedMonth)</h2>
 
 <table class="table">
-  
+<thead><tr></tr>
+   <th>Lcc</th><th>Pay group</th>
+   @foreach(var y in @Model.Cal) {
+            <th>@y.Key</th>
+         }
+   </th>
+</thead>
 <tbody>
-    
+      
+       
        @foreach(var x in @Model.Results)
          {
             <tr><td>@x.Lcc</td><td>@x.PayGroup</td>
          @foreach(var y in @Model.Cal) {
-            <td>@y.Key</td>
+            <td class="@Model.FormatCell(@y.Key,@x)">&nbsp;</td>
          }
          </tr>
          }
@@ -26,4 +31,4 @@ Results for @Model.Gcc (@Model.Month)
 
 </table>
 
-<a asp-page="/Index">Back to overview</a>
+<a asp-page="/GccView" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month">Back to overview</a>

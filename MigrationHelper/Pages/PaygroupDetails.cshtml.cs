@@ -13,7 +13,7 @@ public class PayGroupDetails : PageModel
 
    public List<PayPeriod> Results { get; set; }
 
-   
+    public string FormattedMonth { get; set; } = "";
 
     public string Gcc { get; set; } = "Dummy"; 
 
@@ -26,12 +26,24 @@ public class PayGroupDetails : PageModel
         _logger = logger;
     }
 
+    public string FormatCell(int day,PayPeriod p)
+    {
+        if (day == p.PayDate.Day) return "Paydate";
+        if (day == p.CutOff.Day) return "CutOff";
+        if (p.Open.Day >= day && day <= p.CutOff.Day) return "Open";
+        if (day > p.PayDate.Day) return "Open";
+        return "Closed";
+    }
+
     public void OnGet(string gcc, int month)
     {
            Gcc = gcc;
         Month = month;
        PGDetails Pd = new PGDetails(gcc,month);
+      //  Helper h = new(gcc,month);
+       Cal = new Calendar(2024,month).Days;
        Results = Pd.GetDetails();
+       FormattedMonth = Toolbox.MonthToName(month);
        var c = Pd.GetCalendar();
         
 
