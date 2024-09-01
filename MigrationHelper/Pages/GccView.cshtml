@@ -30,14 +30,8 @@
         
         @foreach(var x in @Model.oh.DayPercentage)
          {
-          
-            @if(@x == 0) { 
-                <td class="red">@x</td> 
-            } else if (@x > 0 && @x < 60) { 
-                <td class="amber">@x</td> 
-                } else { 
-                <td class="green">@x</td> 
-            }
+            <td class="@Model.ScoreColor(@x)">@x</td>
+            
             
          }
     </tr>

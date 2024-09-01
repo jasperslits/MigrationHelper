@@ -7,9 +7,6 @@ public class DBLoader
 
     public DBLoader() {
         CSVMigHelper c = new CSVMigHelper();
-        string Gcc;
-
-
         var context = new MigHelperCtx();
 
         string targetDirectory = "src/Data/Raw";

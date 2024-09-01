@@ -21,6 +21,10 @@ td.amber {
   color: orange
 }
 
+td.lightgreen {
+  color: lightgreen;
+}
+
 td.Closed {
   background-color: orange;
 }

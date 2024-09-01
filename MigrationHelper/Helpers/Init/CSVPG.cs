@@ -11,7 +11,7 @@ public class CSVMigHelper {
     private string Path {get;set;}
 
 
-    private async void Fixdates() {
+    private  void Fixdates() {
 
         string text = File.ReadAllText(Path);
         text = text.Replace("%results/CUTOFFDATE%","");

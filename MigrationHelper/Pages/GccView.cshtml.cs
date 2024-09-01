@@ -26,6 +26,19 @@ public class GccViewModel : PageModel
         _logger = logger;
     }
 
+    public string ScoreColor(int score) {
+        if (score == 0) return "red";
+        if (score == 100) return "green";
+        if (score > 80) {
+            return "lightgreen";
+        }  else {
+            return "amber";
+        }
+    }
+
+
+
+
     public void OnGet(string gcc, int month)
     {
         Helper h = new(gcc,month);

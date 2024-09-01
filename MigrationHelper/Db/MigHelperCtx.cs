@@ -23,7 +23,6 @@ public class MigHelperCtx : DbContext
          protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite($"Data Source={DbPath}");
 
-        public DbSet<PayPeriodGcc> PayPeriodGccs { get; set; }
         public DbSet<PayPeriod> PayPeriods { get; set; }
 
     }

@@ -17,7 +17,7 @@ public class Calendar
 {
 
 
-    public int Id { get; set; }
+//    public int Id { get; set; }
 
     public Dictionary<int, CalDay> Days { get; set; } = new();
 

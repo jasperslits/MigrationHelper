@@ -63,9 +63,8 @@ public class Helper
 
                 if (c[a.Key].Score >= 0)
                 {
-                    if (a.Key + 1 < nrdays && c[a.Key + 1].Score >= 0)
                         c[a.Key].Score += sc.Free;
-                    c[a.Key].Details.Add($"Free slot for {p.PayGroup}");
+                        c[a.Key].Details.Add($"Free slot for {p.PayGroup}");
                 }
 
             }
@@ -78,13 +77,13 @@ public class Helper
             {
                 double res = (c[a.Key].Score *1.0 / maxScore*1.0)*100;
                 c[a.Key].Percentage = (int)Math.Ceiling(res);
-        
-                if (a.Key + 1 < nrdays && c[a.Key + 1].Score <= 0)
-                {
-                    c[a.Key].Percentage = 20;
-                    c[a.Key].Score = 0;
-                    c[a.Key].Details.Add("Next day is not free");
-                }
+
+            }
+
+            if (a.Key != 1 && c[a.Key-1].Score <= 0 && c[a.Key].Score > 0 && c[a.Key+1].Score <= 0) {
+            {
+                c[a.Key].Percentage = 50;
+            }
             }
 
         }
