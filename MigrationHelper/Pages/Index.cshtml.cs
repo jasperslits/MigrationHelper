@@ -9,18 +9,22 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
 
 
-    public List<string> Gccs { get; set; }
-    public List<string> Months { get; set; }
+    public Dictionary<string,string> Gccs { get; set; }
+    public List<string> MonthNames { get; set; }
+    public List<int> MonthNrs { get; set; }
 
     public IndexModel(ILogger<IndexModel> logger)
     {
         _logger = logger;
     }
 
+ 
+
     public void OnGet()
     {
         MigHelper h = new MigHelper();
-        Months = new List<string> { "8","9","10","11","12" }; 
-        Gccs = h.GetGCCs();
+        MonthNames = h.GetMonthNames();
+        MonthNrs = h.GetMonthNrs();
+        Gccs = h.GetGCCNames();
     }
 }

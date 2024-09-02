@@ -7,19 +7,23 @@
 <h2>Payroll calendar for @Model.Gcc (@Model.FormattedMonth)</h2>
 
 <table class="table">
-<thead><tr></tr>
-   <th>Lcc</th><th>Pay group</th>
+<thead><tr>
+   <th>Lcc</th>
+   <th>Pay group</th>
    @foreach(var y in @Model.Cal) {
             <th>@y.Key</th>
          }
    </th>
+   </tr>
 </thead>
 <tbody>
       
        
        @foreach(var x in @Model.Results)
          {
-            <tr><td>@x.Lcc</td><td>@x.PayGroup</td>
+            <tr>
+               <td>@x.Lcc</td>
+               <td>@x.PayGroup</td>
          @foreach(var y in @Model.Cal) {
             <td class="@Model.FormatCell(@y.Key,@x)">&nbsp;</td>
          }

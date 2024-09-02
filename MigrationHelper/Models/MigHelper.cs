@@ -11,13 +11,39 @@ public class MigHelper
 
     }
 
-    public List<string> GetGCCs()
+    public List<int> GetMonthNrs() {
+        return new List<int> { 9,10,11,12 }; 
+    }
+
+    public List<string> GetMonthNames() {
+        var rv = new List<string>();
+        foreach(var y in GetMonthNrs()) {
+            rv.Add(MigrationHelper.Models.Toolbox.MonthToName(y));
+        } 
+
+        return rv;
+    }
+
+    public List<string> GetGCCs2()
     {
         var context = new MigHelperCtx();
 
         var results = context.PayPeriods.Select(x => x.Gcc).Distinct().ToList();
         results.Sort();
         return results;
+    }
+
+       public Dictionary<string,string> GetGCCNames()
+    {
+        var context = new MigHelperCtx();
+        Dictionary<string,string> rv = new();
+
+        var results = context.GccNames.OrderBy(x => x.Gcc).ToList();
+        // results.Sort();
+        foreach(var r in results) {
+            rv.Add(r.Gcc,r.Name);
+        } 
+        return rv;
     }
 
 

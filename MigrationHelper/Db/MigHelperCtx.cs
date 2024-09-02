@@ -24,5 +24,5 @@ public class MigHelperCtx : DbContext
         => options.UseSqlite($"Data Source={DbPath}");
 
         public DbSet<PayPeriod> PayPeriods { get; set; }
-
+         public DbSet<GccNames> GccNames { get; set; }
     }

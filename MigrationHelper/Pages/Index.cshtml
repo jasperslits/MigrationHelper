@@ -12,23 +12,21 @@
 <thead>
     <tr>
     <th>
-        Gcc</th>
-        <th>August</th>
-        <th>September</th>
-        <th>October</th>
-        <th>November</th>
-        <th>December</th>
-    </th>
+        Gcc</th><th>Name</th>
+        @foreach(var y in @Model.MonthNames) {
+             <th>@y</th>
+        }
+    
     </tr>
 </thead>
 <tbody>
         @foreach(var x in @Model.Gccs)
          {
              <tr>
-            <td>@x</td>
-            @foreach(var y in @Model.Months) {
+            <td>@x.Key</td><td>@x.Value</td>
+            @foreach(var y in @Model.MonthNrs) {
             <td>
-                <a asp-page="/GccView" asp-route-gcc="@x" asp-route-month="@y">Calendar</a>
+                <a asp-page="/GccView" asp-route-gcc="@x.Key" asp-route-month="@y">Calendar</a>
             </td>
             }
             </tr>

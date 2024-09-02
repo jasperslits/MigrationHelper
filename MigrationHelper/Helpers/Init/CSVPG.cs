@@ -19,6 +19,32 @@ public class CSVMigHelper {
          
     }
 
+    public List<GccNames> ReadGcc() {
+        var path = "src/Data/Input/gcc.csv";
+        
+   
+
+     var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            HasHeaderRecord = true,
+            Delimiter = ";",
+            HeaderValidated = null,
+            MissingFieldFound = null
+        };
+        var records = new List<GccNames>();
+        Console.WriteLine($"Reading {path}");
+        using (var reader = new StreamReader(path))
+        using (var csv = new CsvReader(reader, config))
+        {
+      
+            csv.Context.RegisterClassMap<ServiceProvidedMapGcc>();
+            records = csv.GetRecords<GccNames>().ToList();
+
+        }
+        return records;
+        }
+
+
     public List<PayPeriod> ReadPg(string path) {
         Path = path;
         
@@ -36,7 +62,7 @@ public class CSVMigHelper {
         using (var csv = new CsvReader(reader, config))
         {
             Console.WriteLine($"Reading {path}");
-            csv.Context.RegisterClassMap<ServiceProvidedMap>();
+            csv.Context.RegisterClassMap<ServiceProvidedMapPG>();
             records = csv.GetRecords<PayPeriod>().ToList();
 
         }
@@ -44,12 +70,11 @@ public class CSVMigHelper {
         }
 }
 
-
-public class ServiceProvidedMap : ClassMap<PayPeriod>
+public class ServiceProvidedMapPG : ClassMap<PayPeriod>
 {
 
 
-	public ServiceProvidedMap()
+	public ServiceProvidedMapPG()
 	{
         DateTime ts = DateTime.Now;
 
@@ -63,4 +88,18 @@ public class ServiceProvidedMap : ClassMap<PayPeriod>
 	}
 }
 
+public class ServiceProvidedMapGcc : ClassMap<GccNames>
+{
+
+
+	public ServiceProvidedMapGcc()
+	{
+        DateTime ts = DateTime.Now;
+
+		Map(m => m.Gcc).Name("Gcc");
+		Map(m => m.Name).Name("Name");
+	}
+}
+
 // GCC,LCC,PAYGROUP,OPEN_DATE,CLOSE_DATE,PAYSCHEDULE,PAYDATE,CUTOFFDATE
+// Gcc;Name

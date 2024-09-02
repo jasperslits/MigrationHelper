@@ -17,6 +17,23 @@ namespace MigrationHelper.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
 
+            modelBuilder.Entity("MigrationHelper.Models.GccNames", b =>
+                {
+                    b.Property<int>("GccNamesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Gcc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("GccNamesId");
+
+                    b.ToTable("GccNames");
+                });
+
             modelBuilder.Entity("MigrationHelper.Models.PayPeriod", b =>
                 {
                     b.Property<int>("PayPeriodId")
@@ -30,11 +47,9 @@ namespace MigrationHelper.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gcc")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Lcc")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Open")
@@ -44,43 +59,11 @@ namespace MigrationHelper.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PayGroup")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("PayPeriodId");
 
                     b.ToTable("PayPeriods");
-                });
-
-            modelBuilder.Entity("MigrationHelper.Models.PayPeriodGcc", b =>
-                {
-                    b.Property<int>("PayPeriodGccId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Close")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CutOff")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Gcc")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Open")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("PayDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PayGroup")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("PayPeriodGccId");
-
-                    b.ToTable("PayPeriodGccs");
                 });
 #pragma warning restore 612, 618
         }

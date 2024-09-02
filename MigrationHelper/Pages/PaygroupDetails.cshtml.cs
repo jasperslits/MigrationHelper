@@ -32,7 +32,7 @@ public class PayGroupDetails : PageModel
         if (day == p.PayDate.Day) return "Paydate";
         if (day == p.CutOff.Day) return "CutOff";
         if (p.Open.Day >= day && day <= p.CutOff.Day) return "Open";
-        if (day > p.PayDate.Day) return "Open";
+        if (day > p.Open.Day) return "Open";
         return "Closed";
     }
 

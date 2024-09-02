@@ -1,8 +1,8 @@
 namespace MigrationHelper.Models;
 
-public class Gcc {
+public class GccNames {
 
-    public int Id { get; set;}
-    public string Code { get; set; }
+    public int GccNamesId { get; set;}
+    public string Gcc { get; set; }
     public string Name { get; set; }
 }
