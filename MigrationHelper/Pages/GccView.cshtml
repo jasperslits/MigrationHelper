@@ -38,9 +38,9 @@
 </tbody>
 
 </table>
-
+<p>
 <a asp-page="/PaygroupDetails" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month">Payroll calendar</a>
-
+</p>
 <table class="table"> 
     <thead>
         <tr><th>Criteria</th><th>Penalty</th></tr>
@@ -50,7 +50,8 @@
         <tr><td>Cut-off</td><td>-@Model.sc.CutOff</td></tr>
         <tr><td>Pay date</td><td>-@Model.sc.PayDate</td></tr>
         <tr><td>Pay date +1</td><td>-@Model.sc.NextPayDate</td></tr>
-        <tr><td>Free slot</td><td>@Model.sc.Free</td></tr>
+        <tr><td>Free slot before cut-off</td><td>@Model.sc.Free</td></tr>
+        <tr><td>Free slot after cut-off</td><td>@Model.sc.FreeAfterClose</td></tr>
     </tbody>
 </table>
 

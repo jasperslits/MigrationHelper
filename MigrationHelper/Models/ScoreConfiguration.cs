@@ -12,4 +12,6 @@ public class ScoreConfiguration
     public int NextPayDate { get; set; } = 1;
 
     public int Free {get;set; } = 4;
+
+    public int FreeAfterClose {get;set; } = 4;
 }

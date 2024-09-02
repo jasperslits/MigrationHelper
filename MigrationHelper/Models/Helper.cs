@@ -35,6 +35,7 @@ public class Helper
         ScoreConfiguration sc = new ScoreConfiguration();
         c = new Calendar(2024, this.Month).Days;
         int nrdays = c.Count();
+        bool notClosed = false;
         foreach (KeyValuePair<int, CalDay> a in c)
         {
             DateTime dt = new(2024, this.Month, a.Key, 0, 0, 0);
@@ -61,10 +62,18 @@ public class Helper
                     }
                 }
 
-                if (c[a.Key].Score >= 0)
+                notClosed = dt.Day <= p.CutOff.Day || dt.Day >= p.CutOff.Day;
+
+                if (c[a.Key].Score >= 0 && notClosed)
                 {
                         c[a.Key].Score += sc.Free;
-                        c[a.Key].Details.Add($"Free slot for {p.PayGroup}");
+                        c[a.Key].Details.Add($"Free slot when {p.PayGroup} is not closed ");
+                }
+                
+                if (c[a.Key].Score >= 0 && ! notClosed)
+                {
+                        c[a.Key].Score += sc.FreeAfterClose;
+                        c[a.Key].Details.Add($"Free slot when {p.PayGroup} is closed ");
                 }
 
             }
@@ -79,8 +88,8 @@ public class Helper
                 c[a.Key].Percentage = (int)Math.Ceiling(res);
 
             }
-
-            if (a.Key != 1 && c[a.Key-1].Score <= 0 && c[a.Key].Score > 0 && c[a.Key+1].Score <= 0) {
+        
+            if (a.Key != 1 && a.Key != nrdays && c[a.Key-1].Score <= 0 && c[a.Key].Score > 0 && c[a.Key+1].Score <= 0) {
             {
                 c[a.Key].Percentage = 50;
             }
