@@ -8,25 +8,30 @@
 
 <table class="table">
     <thead>
-        <tr><th>Nr</th>
+        <tr>
+            <th>Nr</th>
             @foreach(var x in @Model.oh.DayNumbers)
          {<th>@x</th>}
         
         </tr>
     </thead>
 <tbody>
-    <tr><td>Day</td>
+    <tr>
+        <td>Day</td>
        @foreach(var x in @Model.oh.DayNames)
          {<td>@x</td>}
     </tr>
-        <tr><td>Score</td>
+    <tr>
+        <td>Score</td>
         @{ int i = 0; }    
         @foreach(var x in @Model.oh.DayScore)
          {
               i++;
-            <td><a asp-page="/Details" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month" asp-route-day="@i">@x</a></td>}</td>
+            
+        <td><a asp-page="/Details" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month" asp-route-day="@i">@x</a></td>}</td>
     </tr>
-         <tr><td>Percentage</td>
+    <tr>
+        <td>Percentage</td>
         
         @foreach(var x in @Model.oh.DayPercentage)
          {

@@ -91,6 +91,7 @@ public class Helper
         
             if (a.Key != 1 && a.Key != nrdays && c[a.Key-1].Score <= 0 && c[a.Key].Score > 0 && c[a.Key+1].Score <= 0) {
             {
+                c[a.Key].Details.Add($"No free slot on the next day");
                 c[a.Key].Percentage = 50;
             }
             }
