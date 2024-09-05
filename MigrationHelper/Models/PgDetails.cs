@@ -26,7 +26,7 @@ public class PGDetails
         DateTime pStart = new (2024, Month, 1, 0, 0, 0);
         DateTime pEnd = new (2024, Month, DateTime.DaysInMonth(2024, Month), 0, 0, 0);
         var pg = context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart 
-                           &&  x.CutOff <= pEnd).ToList();
+                           &&  x.CutOff <= pEnd).OrderBy(x => x.Lcc).ToList();
 
         return pg;
 /*

@@ -18,7 +18,7 @@ public class LoadGCCModel : PageModel
 
     public void OnGet()
     {
-        DBLoader db = new DBLoader();
+        DBLoader db = new();
         DbCount = db.GccLoader();
       
 
