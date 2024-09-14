@@ -24,14 +24,25 @@ namespace MigrationHelper.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Gcc")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Migrated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Month")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("Year")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("GccNamesId");
 
-                    b.ToTable("GccNames");
+                    b.ToTable("GCCNames");
                 });
 
             modelBuilder.Entity("MigrationHelper.Models.PayPeriod", b =>
@@ -64,6 +75,71 @@ namespace MigrationHelper.Migrations
                     b.HasKey("PayPeriodId");
 
                     b.ToTable("PayPeriods");
+                });
+
+            modelBuilder.Entity("MigrationHelper.Models.ScoreBreakdown", b =>
+                {
+                    b.Property<int>("ScoreBreakdownId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Gcc")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ushort>("Sc")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ScoreBreakdownId");
+
+                    b.ToTable("ScoreBreakdown");
+                });
+
+            modelBuilder.Entity("MigrationHelper.Models.ScoreCache", b =>
+                {
+                    b.Property<int>("ScoreCacheId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Gcc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Percentage")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ScoreCacheId");
+
+                    b.ToTable("ScoreCache");
                 });
 #pragma warning restore 612, 618
         }

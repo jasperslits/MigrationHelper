@@ -11,23 +11,24 @@
 <table class="table">
 <thead>
     <tr>
-    <th>
-        Gcc</th><th>Name</th>
+        <th>Gcc</th>
+        <th>Name</th>
         @foreach(var y in @Model.MonthNames) {
-             <th>@y</th>
+            <th>@y</th>
         }
-    
     </tr>
 </thead>
 <tbody>
         @foreach(var x in @Model.Gccs)
          {
-             <tr>
-            <td>@x.Key</td><td>@x.Value</td>
-            @foreach(var y in @Model.MonthNrs) {
-            <td>
-                <a asp-page="/GccView" asp-route-gcc="@x.Key" asp-route-month="@y">Calendar</a>
-            </td>
+            <tr>
+                <td><a asp-page="/GccDetails" asp-route-gcc="@x.Gcc">@x.Gcc</a></td>
+                <td>@x.Name</td>
+                @foreach(var y in @Model.MonthNrs) {
+                
+                 <td class="@if (x.Month == y) { <text>mig</text> } else { <text>nomig</text> }"> 
+                    <a asp-page="/GccView" asp-route-gcc="@x.Gcc" asp-route-year="2024" asp-route-month="@y">Calendar</a>
+                </td>
             }
             </tr>
         }

@@ -1,26 +1,27 @@
-﻿@page "{gcc}/{month:int}/{day:int}"
+﻿@page "{gcc}/{year:int}/{month:int}/{day:int}"
 @model DetailModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<h2>Score breakdown for @Model.Gcc | @Model.FormattedDay</h2>
+<h2>Score breakdown for @Model.Gcc.Gcc (@Model.Gcc.Name) | @Model.FormattedDay</h2>
 
 <table class="table">
 <thead>
   <tr>
-  <th>Details</th>
+  <th>Details</th><th>Score</th>
   </tr>
 </thead>
 <tbody>
     
        @foreach(var x in @Model.Details)
-         {<tr><td>@x</td></tr>}
-    
-      
-    
+         {<tr>
+            <td>@x.Message</td>
+            <td>@x.Sc</td>
+          </tr>
+          } 
 </tbody>
 
 </table>
 
-<a asp-page="/GccView" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month">Back</a>
+<a asp-page="/GccView" asp-route-gcc="@Model.Gcc.Gcc"  asp-route-year="@Model.Year" asp-route-month="@Model.Month">Back</a>

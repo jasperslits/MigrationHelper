@@ -1,4 +1,6 @@
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MigrationHelper.Models;
 
 public class CalDay
@@ -10,7 +12,8 @@ public class CalDay
 
     public string Color { get; set; } = "green";
 
-    public List<string> Details { get; set; } = new();
+    [NotMapped]
+    public List<ScoreBreakdownMessage> Details { get; set; } = new();
 }
 
 public class Calendar
@@ -25,17 +28,18 @@ public class Calendar
     public Calendar(int year, int month)
     {
         int days = DateTime.DaysInMonth(year, month);
-        ScoreConfiguration sc = new ScoreConfiguration();
+
 
         for (int i = 1; i <= days; i++)
         {
 
-            DateTime dt = new DateTime(2024, month, i);
+            DateTime dt = new DateTime(year, month, i);
             Days[i] = new CalDay { Day = i, Score = 0, Name = dt.ToString("ddd"), Percentage = 0 };
             if (dt.DayOfWeek == DayOfWeek.Sunday || dt.DayOfWeek == DayOfWeek.Saturday)
             {
-                Days[i].Score -= sc.Weekend;
-                Days[i].Details.Add($"Weekend");
+                Days[i].Score -= (int)ScoreConfiguration.Weekend;
+                 Days[i].Details.Add(new ScoreBreakdownMessage { Message = $"Weekend", Sc = ScoreConfiguration.Weekend});
+                
             }
 
         }

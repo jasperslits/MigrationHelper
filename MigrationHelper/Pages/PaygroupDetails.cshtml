@@ -1,10 +1,10 @@
-﻿@page "{gcc}/{month:int}"
+﻿@page "{gcc}/{year:int}/{month:int}"
 @model PayGroupDetails
 @{
     ViewData["Title"] = "Home page";
 }
 
-<h2>Payroll calendar for @Model.Gcc (@Model.FormattedMonth)</h2>
+<h2>Payroll calendar for @Model.Gcc.Gcc (@Model.Gcc.Name) in @Model.FormattedMonth</h2>
 
 <table class="table">
 <thead>
@@ -35,4 +35,4 @@
 
 </table>
 
-<a asp-page="/GccView" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month">Back to overview</a>
+<a asp-page="/GccView" asp-route-gcc="@Model.Gcc.Gcc" asp-route-year="@Model.Year" asp-route-month="@Model.Month">Back to overview</a>

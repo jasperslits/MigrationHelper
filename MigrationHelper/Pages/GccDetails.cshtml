@@ -1,0 +1,46 @@
+﻿@page "{gcc}"
+@model GccDetailModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h2>Migration details for @Model.Gcc.Gcc - @Model.Gcc.Name </h2>
+<form method="post">
+    <input type="hidden" asp-for="@Model.Gcc.GccNamesId"/>
+    <input type="hidden" asp-for="@Model.Gcc.Gcc"/>
+    <input type="hidden" asp-for="@Model.Gcc.Name"/>
+<table class="table small">
+    <thead>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Year</td>
+            <td><select asp-for="@Model.Gcc.Year" asp-items="@Model.YearsSL"></select></td>
+        </tr>
+        <tr>
+            <td>Month</td>
+            <td><select asp-for="@Model.Gcc.Month" asp-items="@Model.MonthsSL"></select></td>
+        </tr>
+        <tr>
+            <td>Migrated?</td>
+            <td><input type="checkbox" asp-for="@Model.Gcc.Migrated" checked="@Model.Gcc.Migrated"></td>
+        </tr>
+<tr>
+    <td colspan="2"><input type="submit" value="Save"></td>
+</tr>
+</table>
+
+</form>
+
+<h3>Statistics</h3>
+<table class="table small">
+    <tr><td>Number of countries</td><td>@Model.Stats.Countrycount</td></tr>
+    <tr><td>Number of LCCs</td><td>@Model.Stats.LCCCount</td></tr>
+    <tr><td>Number of pay groups</td><td>@Model.Stats.PGCount</td></tr>
+</table>
+
+<a asp-page="/Index">Back to overview</a>

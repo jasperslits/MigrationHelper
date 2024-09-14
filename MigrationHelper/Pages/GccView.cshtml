@@ -1,10 +1,10 @@
-﻿@page "{gcc}/{month:int}"
+﻿@page "{gcc}/{year:int}/{month:int}"
 @model GccViewModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-<h2>Results for @Model.Gcc (@Model.MonthName)</h2>
+<h2>Results for @Model.Gcc.Gcc (@Model.Gcc.Name) in @Model.MonthName</h2>
 
 <table class="table">
     <thead>
@@ -27,8 +27,9 @@
         @foreach(var x in @Model.oh.DayScore)
          {
               i++;
-            
-        <td><a asp-page="/Details" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month" asp-route-day="@i">@x</a></td>}</td>
+            <td><a asp-page="/Details" asp-route-gcc="@Model.Gcc.Gcc" asp-route-year="@Model.Year" asp-route-month="@Model.Month" asp-route-day="@i">@x</a></td>
+        }
+        
     </tr>
     <tr>
         <td>Percentage</td>
@@ -36,29 +37,27 @@
         @foreach(var x in @Model.oh.DayPercentage)
          {
             <td class="@Model.ScoreColor(@x)">@x</td>
-            
-            
          }
     </tr>
 </tbody>
 
 </table>
 <p>
-<a asp-page="/PaygroupDetails" asp-route-gcc="@Model.Gcc" asp-route-month="@Model.Month">Payroll calendar</a>
+<a asp-page="/PaygroupDetails" asp-route-gcc="@Model.Gcc.Gcc" asp-route-year="@Model.Year" asp-route-month="@Model.Month">View payroll calendar</a>
 </p>
-<table class="table"> 
+<h3>Scoring</h3>
+<table class="table small"> 
     <thead>
-        <tr><th>Criteria</th><th>Penalty</th></tr>
+        <tr><th>Criteria</th><th>Score</th></tr>
     </thead>
     <tbody>
-        <tr><td>Weekend</td><td>-@Model.sc.Weekend</td></tr>
-        <tr><td>Cut-off</td><td>-@Model.sc.CutOff</td></tr>
-        <tr><td>Pay date</td><td>-@Model.sc.PayDate</td></tr>
-        <tr><td>Pay date +1</td><td>-@Model.sc.NextPayDate</td></tr>
-        <tr><td>Free slot before cut-off</td><td>@Model.sc.Free</td></tr>
-        <tr><td>Free slot after cut-off</td><td>@Model.sc.FreeAfterClose</td></tr>
+       @foreach(var x in Model.keyValuePairs) {
+        <tr><td>@x.Key</td><td>@x.Value</td></tr>
+
+       }
     </tbody>
 </table>
+
 
 
 <a asp-page="/Index">Back to overview</a>

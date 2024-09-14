@@ -1,10 +1,8 @@
 namespace MigrationHelper.Helpers.Init;
 using MigrationHelper.Db;
-using MigrationHelper.Models;
 
 public class DBLoader
 {
-    public int Rc {get;set;} = 1;
 
     public MigHelperCtx Context { get;set;}
 
@@ -13,11 +11,11 @@ public class DBLoader
     }
 
     public int GccLoader() {
-        CSVMigHelper c = new CSVMigHelper();
+        CSVMigHelper c = new();
        
         Context.GccNames.RemoveRange(Context.GccNames);
         Context.SaveChanges();
-      //  await context.GccNames.ExecuteDeleteAsync();
+ 
         var results = c.ReadGcc();
    
         Context.AddRange(results);
@@ -26,7 +24,7 @@ public class DBLoader
     }
 
     public int PGLoader() {
-        CSVMigHelper c = new CSVMigHelper();
+        CSVMigHelper c = new();
         
 
         string targetDirectory = "src/Data/Raw";

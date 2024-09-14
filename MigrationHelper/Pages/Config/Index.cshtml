@@ -1,4 +1,4 @@
-﻿@page 
+﻿@page
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -6,12 +6,14 @@
 
 <h2>Config overview</h2>
 
-
-
 <table class="table">
-<tbody>
-        <tr><td><a asp-page="/Config/LoadGCC">Load Gccs</a></td></tr>
-    <tr><td><a asp-page="/Config/LoadPG">Load Pay groups</a></td></tr>
-</tbody>
+    <tbody>
+        <tr>
+            <td><a asp-page="/Config/LoadGCC">Load Gccs (wipes all data)</a></td>
+        </tr>
+        <tr>
+            <td><a asp-page="/Config/LoadPG">Load Pay groups (wipes all data)</a></td>
+        </tr>
+    </tbody>
 
 </table>

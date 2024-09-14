@@ -4,57 +4,53 @@ using MigrationHelper.Db;
 
 public class MigHelper
 {
-    public List<PayPeriodGcc> pg = new List<PayPeriodGcc>();
+    public List<PayPeriodGcc> pg = [];
+
+    private MigHelperCtx _context;
 
     public MigHelper()
     {
-
+        _context = new MigHelperCtx();
     }
 
-    public List<int> GetMonthNrs() {
-        return new List<int> { 9,10,11,12 }; 
+    public MigStats GetStats(string gcc)
+    {
+        MigStats migStats = new()
+        {
+            LCCCount = _context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.Lcc).Distinct().Count(),
+            PGCount = _context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.PayGroup).Distinct().Count(),
+            Countrycount = _context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.Lcc.Substring(0, 2)).Distinct().Count()
+        };
+        return migStats;
     }
 
-    public List<string> GetMonthNames() {
+    public List<int> GetMonthNrs()
+    {
+        return [9, 10, 11, 12];
+    }
+
+    public List<string> GetMonthNames()
+    {
         var rv = new List<string>();
-        foreach(var y in GetMonthNrs()) {
-            rv.Add(MigrationHelper.Models.Toolbox.MonthToName(y));
-        } 
+        foreach (var y in GetMonthNrs())
+        {
+            rv.Add(Toolbox.MonthToName(y));
+        }
 
         return rv;
     }
 
-    public List<string> GetGCCs2()
+    public List<GccNames> GetGCCNames()
     {
-        var context = new MigHelperCtx();
-
-        var results = context.PayPeriods.Select(x => x.Gcc).Distinct().ToList();
-        results.Sort();
-        return results;
-    }
-
-       public Dictionary<string,string> GetGCCNames()
-    {
-        var context = new MigHelperCtx();
-        Dictionary<string,string> rv = new();
-
-        var results = context.GccNames.OrderBy(x => x.Gcc).ToList();
-        // results.Sort();
-        foreach(var r in results) {
-            rv.Add(r.Gcc,r.Name);
-        } 
-        return rv;
+        return _context.GccNames.OrderBy(x => x.Gcc).ToList();
     }
 
 
-    public void LoadData(string Gcc, int month)
+    public void LoadData(string Gcc, int year, int month)
     {
-
-        var context = new MigHelperCtx();
-
-        DateTime pStart = new DateTime(2024, month, 1, 0, 0, 0);
-        DateTime pEnd = new DateTime(2024, month, DateTime.DaysInMonth(2024, month), 0, 0, 0);
-        var b = context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart &&  x.CutOff <= pEnd).ToList();
+        DateTime pStart = new DateTime(year, month, 1, 0, 0, 0);
+        DateTime pEnd = new DateTime(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0);
+        var b = _context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart && x.CutOff <= pEnd).ToList();
 
 
         List<PayPeriodGcc> x = b.DistinctBy(x => x.PayGroup).Select(o => new PayPeriodGcc
@@ -67,6 +63,6 @@ public class MigHelper
             CutOff = o.CutOff
         }).ToList();
         pg = x;
-       // Console.WriteLine($"Found PayPeriodGcc {x.Count} records");
+        // Console.WriteLine($"Found PayPeriodGcc {x.Count} records");
     }
 }

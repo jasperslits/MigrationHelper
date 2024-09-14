@@ -7,11 +7,9 @@ namespace MigrationHelper.Db;
 
 public class MigHelperCtx : DbContext
     {
-        public string DbPath { get; }
 
          public MigHelperCtx()
     {
-        DbPath =  "MigHelper.db";
       
     }
 
@@ -20,9 +18,15 @@ public class MigHelperCtx : DbContext
         {
         }
 
-         protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+         protected override void OnConfiguring(DbContextOptionsBuilder options) {
+         options.UseSqlite($"Data Source=MigHelper.db");
+  
+        }
 
         public DbSet<PayPeriod> PayPeriods { get; set; }
          public DbSet<GccNames> GccNames { get; set; }
+
+         public DbSet<ScoreCache> ScoreCache { get; set; }
+
+         public DbSet<ScoreBreakdown> ScoreBreakdown { get; set; }
     }

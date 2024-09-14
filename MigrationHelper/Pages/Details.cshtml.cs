@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MigrationHelper.Models;
+using MigrationHelper.Db;
 
 namespace MigrationHelper.Pages;
 
@@ -8,36 +9,42 @@ public class DetailModel : PageModel
 {
     private readonly ILogger<DetailModel> _logger;
 
-    public List<string> Details { get; set;}
+    public List<ScoreBreakdownMessage> Details { get; set;}
 
     [BindProperty]
     public ScoreConfiguration sc {get;set;}
 
-    public string Gcc { get; set; } = "Dummy"; 
+    public GccNames Gcc { get; set; }
 
     public int Month { get;set; } = 1 ;
 
     public int Day { get; set; }
 
+    public int Year { get; set; }
+
     public string FormattedDay { get; set; } = "";
 
-    public DetailModel(ILogger<DetailModel> logger)
+    private readonly MigHelperCtx _context;
+
+    public DetailModel(ILogger<DetailModel> logger,MigHelperCtx context)
     {
         _logger = logger;
+        _context = context;
     }
 
-    public void OnGet(string gcc, int month, int day)
+    public void OnGet(string gcc, int year, int month, int day)
     {
-        Helper h = new(gcc,month);
-         sc = new ScoreConfiguration();
+        Helper h = new(gcc,year,month);
+        sc = new ScoreConfiguration();
         var res = h.c;
-        Gcc = gcc;
+        Gcc = _context.GccNames.Where(x => x.Gcc == gcc).Single();
         Month = month;
         Day = day;
-        FormattedDay = Toolbox.DayToName(month,day);
-        var f = res.Where(x => x.Key == day).Select(x => x.Value.Details).ToList();
-        f[0].Sort();
-        Details = f[0];
+        Year = year;
+        FormattedDay = Toolbox.DayToName(year,month,day);
+        Details = _context.ScoreBreakdown.
+        Where(x => x.Gcc == gcc && x.Year == Year && x.Month == Month && x.Day == Day).OrderBy( x=> x.Message).
+        Select(x => new ScoreBreakdownMessage { Message = x.Message, Sc = x.Sc }).ToList();
    
     }
 }

@@ -24,5 +24,4 @@
 <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
   <Copy SourceFiles="MigHelper.db" DestinationFolder="$(PublishDir)" />
 </Target>
-
 </Project>

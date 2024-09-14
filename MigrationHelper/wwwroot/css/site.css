@@ -21,8 +21,12 @@ td.amber {
   color: orange
 }
 
-td.lightgreen {
+td.lightgreen  {
   color: lightgreen;
+}
+
+td.mig {
+  background-color: lightgreen;
 }
 
 td.Closed {
@@ -47,6 +51,10 @@ td.Paydate, td.CutOff {
 
 table.table td,th {
   border:1px solid black;
+}
+
+table.small {
+  width: 50%;
 }
 
 body {

@@ -1,17 +1,12 @@
 namespace MigrationHelper.Models;
 
-public class ScoreConfiguration
+public enum ScoreConfiguration : ushort
 {
 
-    public ScoreConfiguration() {}
-
-    public int Weekend { get; set; } = 10;
-    public int CutOff { get; set; } = 2;
-    public int PayDate { get; set; } = 2;
-
-    public int NextPayDate { get; set; } = 1;
-
-    public int Free {get;set; } = 4;
-
-    public int FreeAfterClose {get;set; } = 4;
+    Weekend = 10,
+   CutOff = 2,
+   PayDate = 2,
+    NextPayDate = 1,
+    Free = 4,
+    FreeAfterClose = 4
 }
