@@ -44,17 +44,18 @@ public class GccViewModel : PageModel
 
     public void OnGet(string gcc, int year, int month)
     {
+        Month = month;
+        Year = year;
         Helper h = new(gcc,year,month);
         
-        keyValuePairs.Add("Weekend",-1*(int)ScoreConfiguration.Weekend);
-        keyValuePairs.Add("Cut-off",-1*(int)ScoreConfiguration.CutOff);
-        keyValuePairs.Add("Pay date",-1*(int)ScoreConfiguration.PayDate);
-        keyValuePairs.Add("Pay date +1",-1*(int)ScoreConfiguration.NextPayDate);
+        keyValuePairs.Add("Weekend",(int)ScoreConfiguration.Weekend);
+        keyValuePairs.Add("Cut-off",(int)ScoreConfiguration.CutOff);
+        keyValuePairs.Add("Pay date",(int)ScoreConfiguration.PayDate);
+        keyValuePairs.Add("Pay date +1",(int)ScoreConfiguration.NextPayDate);
         keyValuePairs.Add("Free slot before cut-off",(int)ScoreConfiguration.Free);
         keyValuePairs.Add("Free slot after cut-off",(int)ScoreConfiguration.FreeAfterClose);
         oh = new(h.c);
-        Month = month;
-        Year = year;
+  
         MonthName = Toolbox.MonthToName(month);
         Gcc = _context.GccNames.Where(x => x.Gcc == gcc).First();
         

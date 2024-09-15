@@ -6,13 +6,16 @@
 
 <h2>Config overview</h2>
 
-<table class="table">
+<table class="table small">
     <tbody>
         <tr>
-            <td><a asp-page="/Config/LoadGCC">Load Gccs (wipes all data)</a></td>
+            <td><a asp-page="/Config/LoadGCC">Load Gccs (wipes all data and reloads it)</a></td>
         </tr>
         <tr>
-            <td><a asp-page="/Config/LoadPG">Load Pay groups (wipes all data)</a></td>
+            <td><a asp-page="/Config/LoadPG">Load Pay groups (wipes all data and reloads it)</a></td>
+        </tr>
+        <tr>
+            <td><a asp-page="/Config/FlushCache">Flush cache</a></td>
         </tr>
     </tbody>
 

@@ -26,6 +26,11 @@ public class DetailModel : PageModel
 
     private readonly MigHelperCtx _context;
 
+    public int ToInt(ScoreConfiguration val) {
+
+        return (int)val;
+    }
+
     public DetailModel(ILogger<DetailModel> logger,MigHelperCtx context)
     {
         _logger = logger;

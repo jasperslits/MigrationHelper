@@ -53,7 +53,7 @@ public class Helper
 
                 if (p.CutOff.Day == dt.Day)
                 {
-                    c[a.Key].Score -= (int)ScoreConfiguration.CutOff;
+                    c[a.Key].Score += (int)ScoreConfiguration.CutOff;
                     c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Cut off date for {p.PayGroup}", Sc = ScoreConfiguration.CutOff});
                     if (a.Key != 1) {
                //     c[a.Key - 1].Score -= sc.CutOff;
@@ -62,11 +62,11 @@ public class Helper
                 }
                 if (p.PayDate.Day == dt.Day)
                 {
-                    c[a.Key].Score -= (int)ScoreConfiguration.PayDate;
+                    c[a.Key].Score += (int)ScoreConfiguration.PayDate;
                     c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay date for {p.PayGroup}", Sc = ScoreConfiguration.PayDate});
                   
                     if (a.Key != nrdays) {
-                        c[a.Key + 1].Score -= (int)ScoreConfiguration.NextPayDate;
+                        c[a.Key + 1].Score += (int)ScoreConfiguration.NextPayDate;
                         c[a.Key + 1].Details.Add(new ScoreBreakdownMessage { Message = $"Pay date +1 for {p.PayGroup}", Sc = ScoreConfiguration.NextPayDate});
                     }
                 }
@@ -101,7 +101,7 @@ public class Helper
         
             if (a.Key != 1 && a.Key != nrdays && c[a.Key-1].Score <= 0 && c[a.Key].Score > 0 && c[a.Key+1].Score <= 0) {
             {
-                c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"No free slot on the next day", Sc = ScoreConfiguration.FreeAfterClose});
+                c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"No free slot on the next day ({a.Key+1})", Sc = ScoreConfiguration.FreeAfterClose});
                 c[a.Key].Percentage = 50;
             }
             }

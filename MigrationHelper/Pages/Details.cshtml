@@ -6,7 +6,7 @@
 
 <h2>Score breakdown for @Model.Gcc.Gcc (@Model.Gcc.Name) | @Model.FormattedDay</h2>
 
-<table class="table">
+<table class="table small">
 <thead>
   <tr>
   <th>Details</th><th>Score</th>
@@ -17,7 +17,7 @@
        @foreach(var x in @Model.Details)
          {<tr>
             <td>@x.Message</td>
-            <td>@x.Sc</td>
+            <td>@Model.ToInt(@x.Sc)</td>
           </tr>
           } 
 </tbody>

@@ -37,7 +37,7 @@ public class Calendar
             Days[i] = new CalDay { Day = i, Score = 0, Name = dt.ToString("ddd"), Percentage = 0 };
             if (dt.DayOfWeek == DayOfWeek.Sunday || dt.DayOfWeek == DayOfWeek.Saturday)
             {
-                Days[i].Score -= (int)ScoreConfiguration.Weekend;
+                Days[i].Score += (int)ScoreConfiguration.Weekend;
                  Days[i].Details.Add(new ScoreBreakdownMessage { Message = $"Weekend", Sc = ScoreConfiguration.Weekend});
                 
             }
