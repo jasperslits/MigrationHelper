@@ -11,7 +11,7 @@ public class GccNames {
     [Required]
     public string Name { get; set; }
 
-    public int? Month { get; set; } = 0;
+    public int Month { get; set; } = 0;
 
     public int? Year { get; set; } = 2024;
 
