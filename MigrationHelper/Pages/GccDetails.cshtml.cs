@@ -9,12 +9,12 @@ namespace MigrationHelper.Pages;
 public class GccDetailModel : PageModel
 {
     private readonly ILogger<GccDetailModel> _logger;
-
+    private readonly MigHelperCtx _context;
 
     [BindProperty]
     public   GccNames Gcc { get; set; }
-    private readonly MigHelperCtx _context;
-      public MigStats Stats { get; set; }
+    
+    public MigStats Stats { get; set; }
 
     public GccDetailModel(ILogger<GccDetailModel> logger,MigHelperCtx context)
     {
@@ -22,8 +22,8 @@ public class GccDetailModel : PageModel
         _logger = logger;
     }
 
-   public List<SelectListItem> YearsSL { get; set; }
-public List<SelectListItem> MonthsSL { get; set; }
+    public List<SelectListItem> YearsSL { get; set; }
+    public List<SelectListItem> MonthsSL { get; set; }
     
      public async Task<IActionResult> OnPostAsync()
     {
@@ -41,19 +41,18 @@ public List<SelectListItem> MonthsSL { get; set; }
     public void OnGet(string gcc)
     {
      
-       Gcc = _context.GccNames.FirstOrDefault(g => g.Gcc == gcc);
-       Stats = new MigHelper().GetStats(gcc);
+        Gcc = _context.GccNames.FirstOrDefault(g => g.Gcc == gcc);
+        Stats = new MigHelper().GetStats(gcc);
 
-       MonthsSL = new List<SelectListItem>() { new SelectListItem { Text = "Select month", Value = "0"} };
-       string[] names = new System.Globalization.DateTimeFormatInfo().MonthNames;
+        MonthsSL = new List<SelectListItem>() { new SelectListItem { Text = "Select month", Value = "0"} };
+        string[] names = new System.Globalization.DateTimeFormatInfo().MonthNames;
 
-       foreach(var name in names) {
-        int monthnr = Array.IndexOf(names,name)+1;
-        MonthsSL.Add(new SelectListItem { Text = name, Value = monthnr.ToString(), Selected = monthnr == Gcc.Month });
-       }
-
+        foreach(var name in names) {
+            int monthnr = Array.IndexOf(names,name)+1;
+            MonthsSL.Add(new SelectListItem { Text = name, Value = monthnr.ToString(), Selected = monthnr == Gcc.Month });
+        }
     
-     YearsSL = new List<SelectListItem>
+        YearsSL = new List<SelectListItem>
         {
             new SelectListItem
             {
@@ -68,7 +67,5 @@ public List<SelectListItem> MonthsSL { get; set; }
                 Selected = 2025 == Gcc.Year
             }
         };
-       
-
     }
 }

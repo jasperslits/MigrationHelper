@@ -8,6 +8,7 @@ namespace MigrationHelper.Pages;
 public class DetailModel : PageModel
 {
     private readonly ILogger<DetailModel> _logger;
+    private readonly MigHelperCtx _context;
 
     public List<ScoreBreakdownMessage> Details { get; set;}
 
@@ -24,7 +25,7 @@ public class DetailModel : PageModel
 
     public string FormattedDay { get; set; } = "";
 
-    private readonly MigHelperCtx _context;
+    
 
     public int ToInt(ScoreConfiguration val) {
 
@@ -46,7 +47,7 @@ public class DetailModel : PageModel
         Month = month;
         Day = day;
         Year = year;
-        FormattedDay = Toolbox.DayToName(year,month,day);
+        FormattedDay = Helpers.Toolbox.DayToName(year,month,day);
         Details = _context.ScoreBreakdown.
         Where(x => x.Gcc == gcc && x.Year == Year && x.Month == Month && x.Day == Day).OrderBy( x=> x.Message).
         Select(x => new ScoreBreakdownMessage { Message = x.Message, Sc = x.Sc }).ToList();

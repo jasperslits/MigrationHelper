@@ -24,22 +24,6 @@ public class MigHelper
         return migStats;
     }
 
-    public List<int> GetMonthNrs()
-    {
-        return [9, 10, 11, 12];
-    }
-
-    public List<string> GetMonthNames()
-    {
-        var rv = new List<string>();
-        foreach (var y in GetMonthNrs())
-        {
-            rv.Add(Toolbox.MonthToName(y));
-        }
-
-        return rv;
-    }
-
     public List<GccNames> GetGCCNames()
     {
         return _context.GccNames.OrderBy(x => x.Gcc).ToList();

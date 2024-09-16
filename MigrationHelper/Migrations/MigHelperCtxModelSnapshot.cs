@@ -17,6 +17,19 @@ namespace MigrationHelper.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
 
+            modelBuilder.Entity("MigrationHelper.Models.Countries", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("MigrationHelper.Models.GccNames", b =>
                 {
                     b.Property<int>("GccNamesId")
@@ -30,7 +43,7 @@ namespace MigrationHelper.Migrations
                     b.Property<bool>("Migrated")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Month")
+                    b.Property<int>("Month")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -96,7 +109,7 @@ namespace MigrationHelper.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("INTEGER");
 
-                    b.Property<ushort>("Sc")
+                    b.Property<int>("Sc")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Year")

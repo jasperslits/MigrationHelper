@@ -1,0 +1,27 @@
+﻿@page "{gcc}"
+@model GccCountriesModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h2>Country details for @Model.Gcc.Gcc - @Model.Gcc.Name </h2>
+
+<table class="table small">
+    <thead>
+        <tr>
+            <th>Country code</th>
+            <th>Country name</th>
+        </tr>
+    </thead>
+   <tbody>
+    
+       @foreach(var x in @Model.Countries)
+         {<tr>
+            <td>@x.Code</td>
+            <td>@x.Name</td>
+          </tr>
+          } 
+</tbody>
+</table>
+
+<a asp-page="/GccDetails" asp-route-gcc="@Model.Gcc.Gcc">Back to overview</a>

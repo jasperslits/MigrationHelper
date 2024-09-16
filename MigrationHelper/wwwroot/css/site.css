@@ -22,31 +22,39 @@ td.amber {
 }
 
 td.lightgreen  {
-  color: lightgreen;
+  color: #00df72;
 }
 
 td.mig {
-  background-color: lightgreen;
+  background-color:  #00df72;
 }
 
 td.Closed {
-  background-color: orange;
+  background-color: #e1ddd7;
 }
 
 td.green  {
-  color: green
+  color: #007746;
 }
 
 td.Open {
-  background-color: green;
+  background-color: #007746;
 }
 
 td.red  {
   color: red;
 }
 
-td.Paydate, td.CutOff {
+td.Paydate {
   background-color: red;
+}
+
+td.nodata {
+  background-color: #e1ddd7;
+}
+
+td.CutOff {
+  background-color: orange;
 }
 
 table.table td,th {

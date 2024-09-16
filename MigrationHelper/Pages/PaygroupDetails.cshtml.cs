@@ -2,8 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MigrationHelper.Models;
 using MigrationHelper.Db;
+using MigrationHelper.Helpers;
 
 namespace MigrationHelper.Pages;
+
+
 
 public class PayGroupDetails : PageModel
 {
@@ -13,7 +16,6 @@ public class PayGroupDetails : PageModel
 
     public Dictionary<int, CalDay> Cal { get; set; }
 
-    public List<PayPeriod> Results { get; set; }
 
     public string FormattedMonth { get; set; } = "";
 
@@ -38,16 +40,44 @@ public class PayGroupDetails : PageModel
         return "Closed";
     }
 
+    public IEnumerable<IGrouping<string,PayPeriod>> Res{ get; set; }
+
+    public List<PGD> pgd = new();
+
     public void OnGet(string gcc, int year, int month)
     {
         Gcc = _context.GccNames.Where(x => x.Gcc == gcc).First(); ;
         Month = month;
         Year = year;
-        PGDetails Pd = new PGDetails(gcc, year, month);
+        PGDetails Pd = new(gcc, year, month);
         //  Helper h = new(gcc,month);
         Cal = new Calendar(year, month).Days;
-        Results = Pd.GetDetails();
-        FormattedMonth = Toolbox.MonthToName(month);
+        var Results = Pd.GetDetails();
+        foreach(var x in Results) {
+            var res = pgd.Where( y => y.Lcc == x.Lcc && y.PayGroup == x.PayGroup);
+            if (res.Count() == 0) {
+                var copiedCal = new Calendar(year, month).Days;
+                foreach(var day in copiedCal) {
+                    day.Value.Color = FormatCell(day.Key,x);
+                    Console.WriteLine($"Format {x.Lcc} and pg = {x.PayGroup}, day {day.Key} and color = {day.Value.Color}");
+                }    
+
+                pgd.Add( new PGD { Lcc = x.Lcc, PayGroup = x.PayGroup, calDays = copiedCal});
+            } else {
+                var first = res.First();
+                foreach(var day in first.calDays) {
+                    Console.WriteLine($"Before:: Format {x.Lcc} and pg = {x.PayGroup}, day {day.Key} and color = {day.Value.Color}");
+                    if (day.Value.Color == "Open" || day.Value.Color == "Closed") {
+                        day.Value.Color = FormatCell(day.Key,x);
+                    }
+                    Console.WriteLine($"After:: Format {x.Lcc} and pg = {x.PayGroup}, day {day.Key} and color = {day.Value.Color}");
+                }     
+
+                Console.WriteLine($"Found {x.Lcc} and pg = {x.PayGroup}");
+            }
+        };
+
+        FormattedMonth = Toolbox.MonthToName(year,month);
         var c = Pd.GetCalendar();
     }
 }

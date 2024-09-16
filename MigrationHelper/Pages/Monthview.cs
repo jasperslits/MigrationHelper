@@ -21,7 +21,9 @@ public class MonthviewModel : PageModel
         if (nr == 0) {
             return "No month";
         }
-        return Toolbox.MonthToName(nr);
+        int year = 2024;
+        if (nr < 9) year = 2025;
+        return Helpers.Toolbox.MonthToName(year,nr);
     }
 
     public MonthviewModel(ILogger<MonthviewModel> logger,MigHelperCtx context)
@@ -32,6 +34,10 @@ public class MonthviewModel : PageModel
 
     public void OnGet()
     {
-        Res = _context.GccNames.Where(x => x.Migrated == false).GroupBy(x => x.Month);
+        var Res2 = _context.GccNames.Where(x => x.Migrated == false).OrderBy(x => x.Gcc);
+        Res = Res2.GroupBy(x => x.Month);
+
+
+    
     }
 }

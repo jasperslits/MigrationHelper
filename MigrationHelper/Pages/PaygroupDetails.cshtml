@@ -18,18 +18,19 @@
 </thead>
 <tbody>
  
-       @foreach(var x in @Model.Results)
+
+
+         @foreach(var x in @Model.pgd)
          {
             <tr>
                <td>@x.Lcc</td>
                <td>@x.PayGroup</td>
-         @foreach(var y in @Model.Cal) {
-            <td class="@Model.FormatCell(@y.Key,@x)">&nbsp;</td>
+         @foreach(var z in x.calDays) {
+            <td class="@z.Value.Color">&nbsp;</td>
          }
          </tr>
          }
-    
-      
+   
 </tbody>
 
 </table>

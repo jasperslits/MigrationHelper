@@ -76,14 +76,14 @@ public class ServiceProvidedMapPG : ClassMap<PayPeriod>
 
 	public ServiceProvidedMapPG()
 	{
-        DateTime ts = DateTime.Now;
+        DateTime ts = new DateTime(1981,01,01);
 
 		Map(m => m.Gcc).Name("GCC");
 		Map(m => m.Lcc).Name("LCC");
 		Map(m => m.PayGroup).Name("PAYGROUP");
-		Map(m => m.Open).Name("OPEN_DATE").Name("OPEN_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);;
-		Map(m => m.PayDate).Name("PAYDATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);;
-        Map(m => m.CutOff).Name("CUTOFFDATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);;
+		Map(m => m.Open).Name("OPEN_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
+		Map(m => m.PayDate).Name("PAYDATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
+        Map(m => m.CutOff).Name("CUTOFFDATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
 		Map(m => m.Close).Name("CLOSE_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
 	}
 }

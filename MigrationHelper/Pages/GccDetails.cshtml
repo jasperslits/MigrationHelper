@@ -38,7 +38,7 @@
 
 <h3>Statistics</h3>
 <table class="table small">
-    <tr><td>Number of countries</td><td>@Model.Stats.Countrycount</td></tr>
+    <tr><td>Number of countries</td><td><a asp-page="/GccCountries" asp-route-gcc="@Model.Gcc.Gcc">@Model.Stats.Countrycount</a></td></tr>
     <tr><td>Number of LCCs</td><td>@Model.Stats.LCCCount</td></tr>
     <tr><td>Number of pay groups</td><td>@Model.Stats.PGCount</td></tr>
 </table>

@@ -56,7 +56,7 @@ public class GccViewModel : PageModel
         keyValuePairs.Add("Free slot after cut-off",(int)ScoreConfiguration.FreeAfterClose);
         oh = new(h.c);
   
-        MonthName = Toolbox.MonthToName(month);
+        MonthName = Helpers.Toolbox.MonthToName(year,month);
         Gcc = _context.GccNames.Where(x => x.Gcc == gcc).First();
         
         

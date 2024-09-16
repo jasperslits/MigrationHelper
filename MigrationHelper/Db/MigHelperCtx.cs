@@ -29,4 +29,6 @@ public class MigHelperCtx : DbContext
          public DbSet<ScoreCache> ScoreCache { get; set; }
 
          public DbSet<ScoreBreakdown> ScoreBreakdown { get; set; }
+
+         public DbSet<Countries> Countries { get; set; }
     }
