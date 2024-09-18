@@ -40,8 +40,6 @@ public class PayGroupDetails : PageModel
         return "Closed";
     }
 
-    public IEnumerable<IGrouping<string,PayPeriod>> Res{ get; set; }
-
     public List<PGD> pgd = new();
 
     public void OnGet(string gcc, int year, int month)

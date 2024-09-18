@@ -25,14 +25,11 @@ public class IndexModel : PageModel
         _context = context;
     }
 
-    private string cache { get; set; }
-
     public string CheckMonth(string gcc,int year,int month, int currentmonth) {
 
         if (month == currentmonth) { return "mig"; }
 
         if (year == 2024) return "nomig"; 
-
 
         var results = _cache.Where(x => x.Gcc == gcc && x.Month == month).Count();
 

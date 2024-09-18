@@ -50,7 +50,7 @@ public class Helper
 
             foreach (var p in pg)
             {
-
+           //     Console.WriteLine
                 if (p.CutOff.Day == dt.Day)
                 {
                     c[a.Key].Score += (int)ScoreConfiguration.CutOff;
@@ -72,15 +72,16 @@ public class Helper
                 }
 
                 notClosed = dt.Day <= p.CutOff.Day || dt.Day >= p.CutOff.Day;
-
-                if (c[a.Key].Score >= 0 && notClosed)
+                if (notClosed)
+             //   if (c[a.Key].Score >= 0 && notClosed)
                 {
                     c[a.Key].Score += (int)ScoreConfiguration.Free;
                     c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Free slot when {p.PayGroup} is not closed", Sc = ScoreConfiguration.Free});
           
                 }
                 
-                if (c[a.Key].Score >= 0 && ! notClosed)
+                if (! notClosed)
+             //   if (c[a.Key].Score >= 0 && ! notClosed)
                 {
                     c[a.Key].Score += (int)ScoreConfiguration.FreeAfterClose;
                     c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Free slot when {p.PayGroup} is closed", Sc = ScoreConfiguration.FreeAfterClose});
