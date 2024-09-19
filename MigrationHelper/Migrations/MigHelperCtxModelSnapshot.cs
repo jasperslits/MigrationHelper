@@ -58,6 +58,25 @@ namespace MigrationHelper.Migrations
                     b.ToTable("GCCNames");
                 });
 
+            modelBuilder.Entity("MigrationHelper.Models.MigStats", b =>
+                {
+                    b.Property<string>("Gcc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Countrycount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LCCCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PGCount")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Gcc");
+
+                    b.ToTable("MigStats");
+                });
+
             modelBuilder.Entity("MigrationHelper.Models.PayPeriod", b =>
                 {
                     b.Property<int>("PayPeriodId")
@@ -70,19 +89,43 @@ namespace MigrationHelper.Migrations
                     b.Property<DateTime>("CutOff")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Frequency")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Gcc")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Lcc")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("Open")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PCEndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PCStartDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("PayDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("PayEndDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PayGroup")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PayStartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Payslip")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("QueueOpen")
                         .HasColumnType("TEXT");
 
                     b.HasKey("PayPeriodId");

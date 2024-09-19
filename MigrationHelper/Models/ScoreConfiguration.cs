@@ -8,5 +8,7 @@ public enum ScoreConfiguration : int
    PayDate = -2,
     NextPayDate = -1,
     Free = 4,
-    FreeAfterClose = 4
+    FreeAfterClose = 4,
+
+    CutOffBlackout = -2
 }

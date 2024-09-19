@@ -1,5 +1,8 @@
 namespace MigrationHelper.Models;
 using MigrationHelper.Db;
+using MigrationHelper.BL;
+
+
 public class PGDetails
 {
 

@@ -41,7 +41,24 @@ td.Open {
   background-color: #007746;
 }
 
-td.red  {
+td.Blackout {
+  background-color: black;
+  color: white;
+}
+
+td.PreviewPayroll {
+  background-color: blue;
+}
+
+td.PreviewCutOff {
+  background-color: aqua;
+}
+
+td.PYstart, td.PYend {
+  background-color: bisque;
+}
+
+td.red, th.red {
   color: red;
 }
 

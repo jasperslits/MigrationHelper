@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MigrationHelper.Models;
 using MigrationHelper.Db;
+using MigrationHelper.BL;
 
 namespace MigrationHelper.Pages;
 
@@ -50,10 +51,13 @@ public class GccViewModel : PageModel
         
         keyValuePairs.Add("Weekend",(int)ScoreConfiguration.Weekend);
         keyValuePairs.Add("Cut-off",(int)ScoreConfiguration.CutOff);
+        keyValuePairs.Add("Cut-off -1",(int)ScoreConfiguration.CutOffBlackout);
+        keyValuePairs.Add("Cut-off -2",(int)ScoreConfiguration.CutOffBlackout);
         keyValuePairs.Add("Pay date",(int)ScoreConfiguration.PayDate);
         keyValuePairs.Add("Pay date +1",(int)ScoreConfiguration.NextPayDate);
         keyValuePairs.Add("Free slot before cut-off",(int)ScoreConfiguration.Free);
         keyValuePairs.Add("Free slot after cut-off",(int)ScoreConfiguration.FreeAfterClose);
+
         oh = new(h.c);
   
         MonthName = Helpers.Toolbox.MonthToName(year,month);

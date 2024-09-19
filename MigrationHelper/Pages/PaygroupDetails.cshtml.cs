@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MigrationHelper.Models;
 using MigrationHelper.Db;
 using MigrationHelper.Helpers;
+using MigrationHelper.BL;
 
 namespace MigrationHelper.Pages;
 
@@ -33,11 +34,18 @@ public class PayGroupDetails : PageModel
 
     public string FormatCell(int day, PayPeriod p)
     {
+         if (day == p.CutOff.Day-1 || day == p.CutOff.Day-2) return "Blackout";
         if (day == p.PayDate.Day) return "Paydate";
         if (day == p.CutOff.Day) return "CutOff";
-        if (p.Open.Day >= day && day <= p.CutOff.Day) return "Open";
-        if (day > p.Open.Day) return "Open";
-        return "Closed";
+        if (day == p.PCStartDate.Day) return "PYstart";
+        if (day == p.PCEndDate.Day) return "PYend";
+        if (day == p.PayStartDate.Day) return "PreviewPayroll";
+        if (day == p.PayEndDate.Day) return "PreviewCutOff";
+        if (day >= p.CutOff.Day && day <= p.QueueOpen.Day) return "Closed";
+        return "Open";
+      
+      //  if (day > p.Open.Day) return "Open";
+      //  return "Closed";
     }
 
     public List<PGD> pgd = new();

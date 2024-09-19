@@ -10,14 +10,24 @@
 <thead>
    <tr>
       <th>LCC</th>
-      <th>Pay group</th>
+      <th>Pay<br/>group</th>
       @foreach(var y in @Model.Cal) {
             <th>@y.Key</th>
          }
    </tr>
+
 </thead>
 <tbody>
- 
+    <tr><td colspan="2">&nbsp;</td>
+    @foreach(var y in @Model.Cal) {
+            @if(y.Value.Name == "Sat" || y.Value.Name == "Sun") {
+            <td class="red">@y.Value.Name</td>
+            } else {
+            <td>@y.Value.Name</td>
+            }
+         }
+   
+   </tr>
 
 
          @foreach(var x in @Model.pgd)
@@ -26,7 +36,7 @@
                <td>@x.Lcc</td>
                <td>@x.PayGroup</td>
          @foreach(var z in x.calDays) {
-            <td class="@z.Value.Color">&nbsp;</td>
+            <td class="@z.Value.Color">&nbsp;@z.Value.Color</td>
          }
          </tr>
          }

@@ -1,24 +1,31 @@
 namespace MigrationHelper.Models;
 
+using System.ComponentModel.DataAnnotations.Schema;
 using CsvHelper.Configuration.Attributes;
 
 public class PayPeriod
 {
     public int PayPeriodId { get;set;}
 
-    [Index(0)]
     public string Gcc { get; set; }
-    [Index(1)]
-    public string Lcc { get; set; }
-    [Index(2)]
-    public string PayGroup { get; set; }
-    [Index(3)]
-    public DateTime Open { get; set; }
-    [Index(4)]
-    public DateTime Close { get; set; }
-    [Index(4)]
-    public DateTime CutOff { get; set; }
-    [Index(5)]
-    public DateTime PayDate { get; set; }
 
+    public string Lcc { get; set; }
+
+    public string PayGroup { get; set; }
+
+    public DateTime Open { get; set; }
+    
+    public DateTime Close { get; set; }
+
+    public DateTime CutOff { get; set; }
+
+    public DateTime PayDate { get; set; }
+    public DateTime QueueOpen { get; set; }
+    public int Number {get;set;}
+    public string Frequency {get;set;}
+    public DateTime Payslip { get; set; }
+    public DateTime PayStartDate { get; set; }
+    public DateTime PayEndDate { get; set; }
+    public DateTime PCStartDate { get; set; }
+    public DateTime PCEndDate { get; set; }
 }

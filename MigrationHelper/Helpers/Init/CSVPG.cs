@@ -20,7 +20,7 @@ public class CSVMigHelper {
     }
 
     public List<GccNames> ReadGcc() {
-        var path = "src/Data/Input/gcc.csv";
+    var path = "src/Data/Input/gcc.csv";
         
    
 
@@ -85,6 +85,13 @@ public class ServiceProvidedMapPG : ClassMap<PayPeriod>
 		Map(m => m.PayDate).Name("PAYDATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
         Map(m => m.CutOff).Name("CUTOFFDATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
 		Map(m => m.Close).Name("CLOSE_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
+        Map(m => m.Number).Name("NUMBER").Default(0);
+         Map(m => m.Frequency).Name("FREQUENCY");
+        Map(m => m.PayStartDate).Name("PAY_START_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
+         Map(m => m.PayEndDate).Name("PAY_END_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
+        Map(m => m.PCStartDate).Name("PC_START_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
+		Map(m => m.PCEndDate).Name("PC_END_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
+        Map(m => m.QueueOpen).Name("QUEUE_OPEN").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
 	}
 }
 

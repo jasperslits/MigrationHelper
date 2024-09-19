@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MigrationHelper.Models;
 
 public class PayPeriodGcc {
@@ -12,4 +14,19 @@ public class PayPeriodGcc {
     public DateTime PayDate {get;set;}
     public DateTime Open {get;set;}
     public DateTime Close {get;set;}
+
+
+    public DateTime Payslip {get;set;}
+
+    public int Number {get;set;}
+    public string Frequency {get;set;}
+    public DateTime PCStartDate { get; set; }
+
+
+    public DateTime PCEndDate { get; set; }
+
+
+    public DateTime PayStartDate { get; set; }
+
+    public DateTime PayEndDate { get; set; }
 }

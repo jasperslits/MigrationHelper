@@ -1,5 +1,6 @@
 namespace MigrationHelper.Helpers.Init;
 using MigrationHelper.Db;
+using MigrationHelper.Models;
 
 public class DBLoader
 {
@@ -52,6 +53,21 @@ public class DBLoader
             total+=results.Count;
             Context.SaveChanges();  
         }
+        
+        List<MigStats> mlist = new List<MigStats>();
+        var Gccs = Context.PayPeriods.Select (x => x.Gcc).Distinct().ToList();
+        foreach(var gcc in Gccs) {
+        mlist.Add( new()
+        {
+            Gcc = gcc,
+            LCCCount = Context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.Lcc).Distinct().Count(),
+            PGCount = Context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.PayGroup).Distinct().Count(),
+            Countrycount = Context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.Lcc.Substring(0, 2)).Distinct().Count()
+        });
+        }
+        Context.MigStats.AddRange(mlist);
+        Context.SaveChanges(); 
+        
         return total;
         
     }

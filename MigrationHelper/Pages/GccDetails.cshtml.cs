@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MigrationHelper.Db;
 using MigrationHelper.Models;
+using MigrationHelper.BL;
 
 namespace MigrationHelper.Pages;
 
@@ -42,7 +43,7 @@ public class GccDetailModel : PageModel
     {
      
         Gcc = _context.GccNames.FirstOrDefault(g => g.Gcc == gcc);
-        Stats = new MigHelper().GetStats(gcc);
+        Stats = _context.MigStats.Where(x => x.Gcc == gcc).First();
 
         MonthsSL = new List<SelectListItem>() { new SelectListItem { Text = "Select month", Value = "0"} };
         string[] names = new System.Globalization.DateTimeFormatInfo().MonthNames;

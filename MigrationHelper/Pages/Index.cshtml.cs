@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MigrationHelper.Migrations;
 using MigrationHelper.Models;
 using MigrationHelper.Helpers;
 using MigrationHelper.Db;
+using MigrationHelper.BL;
 
 namespace MigrationHelper.Pages;
 
@@ -36,6 +36,8 @@ public class IndexModel : PageModel
         if (results == 0) { return "nodata"; } else { return "nomig"; };
     }
 
+    public Dictionary<string,int> CountryCount { get; set; }
+
     public void OnGet()
     {
         Periods = new List<Periods>();
@@ -54,7 +56,13 @@ public class IndexModel : PageModel
 
         }
         MigHelper h = new();
-
+        CountryCount = new();
+        var res = _context.MigStats.ToList();
+        var x = res.Select(x => x.Gcc).ToList();
+        foreach(var m2 in res) {
+            CountryCount.Add(m2.Gcc,m2.Countrycount);
+        }
         Gccs = h.GetGCCNames();
+        Gccs = Gccs.Where( y => x.Contains(y.Gcc) ).ToList();
     }
 }
