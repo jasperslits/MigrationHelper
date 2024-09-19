@@ -13,7 +13,8 @@ public class DBLoader
 
     public int GccLoader() {
         CSVMigHelper c = new();
-       
+       Context.MigStats.RemoveRange(Context.MigStats);
+       Context.SaveChanges();
         Context.GccNames.RemoveRange(Context.GccNames);
         Context.SaveChanges();
  

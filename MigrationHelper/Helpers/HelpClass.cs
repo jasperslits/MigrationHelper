@@ -11,5 +11,7 @@ public class PGD {
     public string Lcc { get; set; }
     public string PayGroup { get; set; }
 
+    public string Frequency { get; set; }
+
     public  Dictionary<int, CalDay> calDays{ get; set; }
 }

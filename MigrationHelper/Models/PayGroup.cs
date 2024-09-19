@@ -14,7 +14,7 @@ public class PayPeriodGcc {
     public DateTime PayDate {get;set;}
     public DateTime Open {get;set;}
     public DateTime Close {get;set;}
-
+    public DateTime QueueOpen {get;set;}
 
     public DateTime Payslip {get;set;}
 

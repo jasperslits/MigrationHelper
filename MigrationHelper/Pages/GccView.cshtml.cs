@@ -47,7 +47,7 @@ public class GccViewModel : PageModel
     {
         Month = month;
         Year = year;
-        Helper h = new(gcc,year,month);
+        ScoreHelper h = new(gcc,year,month);
         
         keyValuePairs.Add("Weekend",(int)ScoreConfiguration.Weekend);
         keyValuePairs.Add("Cut-off",(int)ScoreConfiguration.CutOff);
@@ -55,6 +55,7 @@ public class GccViewModel : PageModel
         keyValuePairs.Add("Cut-off -2",(int)ScoreConfiguration.CutOffBlackout);
         keyValuePairs.Add("Pay date",(int)ScoreConfiguration.PayDate);
         keyValuePairs.Add("Pay date +1",(int)ScoreConfiguration.NextPayDate);
+        keyValuePairs.Add("Between cutoff and queue open",(int)ScoreConfiguration.BlockedAfterClose);
         keyValuePairs.Add("Free slot before cut-off",(int)ScoreConfiguration.Free);
         keyValuePairs.Add("Free slot after cut-off",(int)ScoreConfiguration.FreeAfterClose);
 

@@ -41,6 +41,7 @@ public class MigHelper
             Payslip = o.Payslip,
             Number = o.Number,
             Frequency = o.Frequency,
+            QueueOpen = o.QueueOpen
                 
         }).ToList();
         pg = x;

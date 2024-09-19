@@ -68,7 +68,7 @@ public class PayGroupDetails : PageModel
                     Console.WriteLine($"Format {x.Lcc} and pg = {x.PayGroup}, day {day.Key} and color = {day.Value.Color}");
                 }    
 
-                pgd.Add( new PGD { Lcc = x.Lcc, PayGroup = x.PayGroup, calDays = copiedCal});
+                pgd.Add( new PGD { Lcc = x.Lcc, PayGroup = x.PayGroup, Frequency = x.Frequency, calDays = copiedCal});
             } else {
                 var first = res.First();
                 foreach(var day in first.calDays) {
