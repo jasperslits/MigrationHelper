@@ -22,13 +22,10 @@ public class LoadPGModel : PageModel
     public async void OnGet()
     {
         await _context.PayPeriods.ExecuteDeleteAsync();
-        await _context.MigStats.ExecuteDeleteAsync();
-
-      //  int rc = await _context.MigStats.ExecuteDeleteAsync();
         await _context.ScoreCache.ExecuteDeleteAsync();
         await _context.ScoreBreakdown.ExecuteDeleteAsync();
         DBLoader db = new DBLoader();
-        DbCount = db.PGLoader();
+        DbCount = await db.PGLoader();
         
 
     }

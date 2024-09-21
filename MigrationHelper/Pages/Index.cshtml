@@ -25,7 +25,7 @@
             <tr>
                 <td><a asp-page="/GccDetails" asp-route-gcc="@x.Gcc">@x.Gcc</a></td>
                 <td>@x.Name</td>
-                <td>@Model.CountryCount[@x.Gcc]</td>
+                <td>@x.Countrycount</td>
                 @foreach(var y in @Model.Periods) {
                 
                  <td class="@Model.CheckMonth(x.Gcc,y.Year,x.Month,y.Month)"> 

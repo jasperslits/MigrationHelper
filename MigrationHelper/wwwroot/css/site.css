@@ -29,29 +29,35 @@ td.mig {
   background-color:  #00df72;
 }
 
-td.Closed {
+td.Closed, td.Blackout {
   background-color: #e1ddd7;
 }
 
 td.green  {
-  color: #007746;
+  color: #00df72;
 }
 
 td.Open {
-  background-color: #007746;
+  background-color: #D9FFE0;
 }
-
-td.Blackout {
-  background-color: black;
-  color: white;
+/* 
+td.Blackout, td.Payslip {
+ background-color: #c6d6ff;
+  color: black;
+}
+*/
+td.Payslip {
+ background-color: #c6d6ff;
+  color: black;
 }
 
 td.PreviewPayroll {
-  background-color: blue;
+  background-color: #c6d6ff;
+  color: black;
 }
 
 td.PreviewCutOff {
-  background-color: aqua;
+  background-color: #c6d6ff;
 }
 
 td.PYstart, td.PYend {
@@ -63,7 +69,7 @@ td.red, th.red {
 }
 
 td.Paydate {
-  background-color: red;
+  background-color: #c6d6ff;
 }
 
 td.nodata {
@@ -71,7 +77,7 @@ td.nodata {
 }
 
 td.CutOff {
-  background-color: orange;
+  background-color: #6647E5;
 }
 
 table.table td,th {

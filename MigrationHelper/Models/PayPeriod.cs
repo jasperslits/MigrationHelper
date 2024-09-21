@@ -21,4 +21,6 @@ public class PayPeriod
     public DateTime PayEndDate { get; set; }
     public DateTime PCStartDate { get; set; }
     public DateTime PCEndDate { get; set; }
+
+    public int Offcycle { get; set; }
 }

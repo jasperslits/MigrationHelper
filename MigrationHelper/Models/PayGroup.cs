@@ -29,4 +29,6 @@ public class PayPeriodGcc {
     public DateTime PayStartDate { get; set; }
 
     public DateTime PayEndDate { get; set; }
+
+        public int Offcycle { get; set; }
 }

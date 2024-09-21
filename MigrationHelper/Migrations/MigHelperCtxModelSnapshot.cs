@@ -36,9 +36,15 @@ namespace MigrationHelper.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Countrycount")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Gcc")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("LCCCount")
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("Migrated")
                         .HasColumnType("INTEGER");
@@ -50,31 +56,15 @@ namespace MigrationHelper.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("PGCount")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("Year")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("GccNamesId");
 
                     b.ToTable("GCCNames");
-                });
-
-            modelBuilder.Entity("MigrationHelper.Models.MigStats", b =>
-                {
-                    b.Property<string>("Gcc")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Countrycount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LCCCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PGCount")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Gcc");
-
-                    b.ToTable("MigStats");
                 });
 
             modelBuilder.Entity("MigrationHelper.Models.PayPeriod", b =>
@@ -99,6 +89,9 @@ namespace MigrationHelper.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Offcycle")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Open")

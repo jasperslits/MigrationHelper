@@ -19,26 +19,13 @@ public class ScoreHelper
         this.Year = year;
         ScoreCacheHelper sch = new(Gcc, year, Month);
         var results = sch.GetCache();
-        if (results.Count == 0)
-        {
-            Console.WriteLine($"No cache for {Gcc} and {Month}");
-            MigHelper mh = new();
-            mh.LoadData(Gcc, year, Month);
-            List<PayPeriodGcc> pg = mh.pg;
-
-            FillCalendar(pg);
-            sch.AddCache(c);
-        }
-        else
-        {
-            foreach (var x in results)
+    
+        foreach (var x in results)
             {
                 c.Add(x.Day, x);
             }
-            Console.WriteLine($"Cache for {Gcc} and {Month}");
+ 
         }
-
-    }
 
 
 
@@ -50,6 +37,7 @@ public class ScoreHelper
         c = new Calendar(Year, this.Month).Days;
         int nrdays = c.Count();
         bool Closed = false;
+      //  pg = pg.Where (x => x.PayGroup == "CN").ToList();
         foreach (KeyValuePair<int, CalDay> a in c)
         {
             DateTime dt = new(Year, this.Month, a.Key, 0, 0, 0);
@@ -65,31 +53,38 @@ public class ScoreHelper
                     c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Cut off date for {p.PayGroup}", Sc = ScoreConfiguration.CutOff });
                     continue;
                 }
+                if (p.Frequency == "monthly") {
+                    if (dt.Day + 1 == p.CutOff.Day)
+                    {
 
-                if (dt.Day + 1 == p.CutOff.Day)
-                {
-
-                    c[a.Key].Score += (int)ScoreConfiguration.CutOffBlackout;
-                    c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Cut off -1 date for {p.PayGroup}", Sc = ScoreConfiguration.CutOffBlackout });
-                    continue;
-                }
-                if (dt.Day + 2 == p.CutOff.Day)
-                {
-                    c[a.Key].Score += (int)ScoreConfiguration.CutOffBlackout;
-                    c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Cut off -2 date for {p.PayGroup}", Sc = ScoreConfiguration.CutOffBlackout });
-                    continue;
+                        c[a.Key].Score += (int)ScoreConfiguration.CutOffBlackout;
+                        c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Cut off -1 date for {p.PayGroup}", Sc = ScoreConfiguration.CutOffBlackout });
+                        continue;
+                    }
+                    if (dt.Day + 2 == p.CutOff.Day)
+                    {
+                        c[a.Key].Score += (int)ScoreConfiguration.CutOffBlackout;
+                        c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Cut off -2 date for pay group {p.PayGroup}", Sc = ScoreConfiguration.CutOffBlackout });
+                        continue;
+                    }
                 }
                 if (p.PayDate.Day == dt.Day)
                 {
                     c[a.Key].Score += (int)ScoreConfiguration.PayDate;
-                    c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay date for {p.PayGroup}", Sc = ScoreConfiguration.PayDate });
+                    c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay date for pay group {p.PayGroup}", Sc = ScoreConfiguration.PayDate });
+                    continue;
+                }
+                if (p.PayDate.Day+1 == dt.Day)
+                {
+                        c[a.Key].Score += (int)ScoreConfiguration.NextPayDate;
+                        c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay date +1 for pay group {p.PayGroup}", Sc = ScoreConfiguration.NextPayDate });
+                        continue;
+                }
 
-
-                    if (a.Key != nrdays)
-                    {
-                        c[a.Key + 1].Score += (int)ScoreConfiguration.NextPayDate;
-                        c[a.Key + 1].Details.Add(new ScoreBreakdownMessage { Message = $"Pay date +1 for {p.PayGroup}", Sc = ScoreConfiguration.NextPayDate });
-                    }
+                 if (dt.Day <= p.QueueOpen.Day && p.QueueOpen > p.PCEndDate && p.Frequency == "monthly") {
+                     c[a.Key].Score += (int)ScoreConfiguration.BlockedAfterClose;
+                    c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay group {p.PayGroup} is closed", Sc = ScoreConfiguration.BlockedAfterClose });
+                    continue;
                 }
 
                 Closed = dt.Day >= p.CutOff.Day && dt.Day <= p.QueueOpen.Day;
@@ -98,15 +93,20 @@ public class ScoreHelper
                 {
                     c[a.Key].Score += (int)ScoreConfiguration.BlockedAfterClose;
                     c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay group {p.PayGroup} is closed", Sc = ScoreConfiguration.BlockedAfterClose });
-
+                    continue;
                 }
 
                 if (!Closed)
                 //   if (c[a.Key].Score >= 0 && ! notClosed)
                 {
                     c[a.Key].Score += (int)ScoreConfiguration.FreeAfterClose;
-                    c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Free slot for {p.PayGroup}", Sc = ScoreConfiguration.FreeAfterClose });
+                    c[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Free slot for pay group {p.PayGroup}", Sc = ScoreConfiguration.FreeAfterClose });
+                    continue;
+
+                
                 }
+
+               
 
             }
         }

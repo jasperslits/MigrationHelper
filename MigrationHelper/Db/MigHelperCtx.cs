@@ -32,5 +32,5 @@ public class MigHelperCtx : DbContext
 
          public DbSet<Countries> Countries { get; set; }
 
-         public DbSet<MigStats> MigStats { get; set; }
+      
     }

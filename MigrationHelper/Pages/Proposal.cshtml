@@ -1,0 +1,40 @@
+﻿@page 
+@model ProposalModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h2>GCC overview</h2>
+
+
+
+<table class="table">
+<thead>
+    <tr>
+        <th>Gcc</th>
+        <th>Name</th>
+        @foreach(var y in @Model.Periods) {
+            <th>@y.MonthName</th>
+        }
+    </tr>
+</thead>
+<tbody>
+        @foreach(var x in @Model.Gccs)
+         {
+            <tr>
+                <td><a asp-page="/GccDetails" asp-route-gcc="@x.Gcc">@x.Gcc</a></td>
+                <td>@x.Name</td>
+    
+                @foreach(var y in @Model.Periods) {
+                
+                 <td class="@Model.CheckMonth(x.Gcc,y.Year,x.Month,y.Month)"> 
+                    <a asp-page="/GccView" asp-route-gcc="@x.Gcc" asp-route-year="@y.Year" asp-route-month="@y.Month">@Model.Days(x.Gcc,y.Year,y.Month)</a>
+                </td>
+            }
+            </tr>
+        }
+
+      
+</tbody>
+
+</table>

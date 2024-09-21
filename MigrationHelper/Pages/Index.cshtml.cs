@@ -4,6 +4,7 @@ using MigrationHelper.Models;
 using MigrationHelper.Helpers;
 using MigrationHelper.Db;
 using MigrationHelper.BL;
+using Microsoft.EntityFrameworkCore;
 
 namespace MigrationHelper.Pages;
 
@@ -36,7 +37,7 @@ public class IndexModel : PageModel
         if (results == 0) { return "nodata"; } else { return "nomig"; };
     }
 
-    public Dictionary<string,int> CountryCount { get; set; }
+ 
 
     public void OnGet()
     {
@@ -55,14 +56,9 @@ public class IndexModel : PageModel
             currentmonth = currentmonth.AddMonths(1);
 
         }
-        MigHelper h = new();
-        CountryCount = new();
-        var res = _context.MigStats.ToList();
-        var x = res.Select(x => x.Gcc).ToList();
-        foreach(var m2 in res) {
-            CountryCount.Add(m2.Gcc,m2.Countrycount);
-        }
-        Gccs = h.GetGCCNames();
-        Gccs = Gccs.Where( y => x.Contains(y.Gcc) ).ToList();
+     
+     
+   
+        Gccs = _context.GccNames.OrderBy(x => x.Gcc).ToList();
     }
 }

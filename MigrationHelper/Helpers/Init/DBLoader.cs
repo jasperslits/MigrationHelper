@@ -1,6 +1,7 @@
 namespace MigrationHelper.Helpers.Init;
 using MigrationHelper.Db;
 using MigrationHelper.Models;
+using MigrationHelper.BL;
 
 public class DBLoader
 {
@@ -13,8 +14,6 @@ public class DBLoader
 
     public int GccLoader() {
         CSVMigHelper c = new();
-       Context.MigStats.RemoveRange(Context.MigStats);
-       Context.SaveChanges();
         Context.GccNames.RemoveRange(Context.GccNames);
         Context.SaveChanges();
  
@@ -38,12 +37,42 @@ public class DBLoader
         return results.Count;
     }
 
-    public int PGLoader() {
+    private async Task<int> PGCacheLoader() {
+        DateTime dt = DateTime.Now;
+
+        var currentmonth = DateTime.Now;
+        var m = new DateTime(2025,3,1);
+        List<GccNames> g = Context.GccNames.ToList();
+        for(int i = 0; i < 8;i++) {
+            if (currentmonth.Month == m.Month && currentmonth.Year == m.Year) {
+                break;
+            }
+            
+            int year = currentmonth.Year;
+            int month = currentmonth.Month;
+            foreach(GccNames gc in g) {
+                string Gcc = gc.Gcc;
+                ScoreHelper sh = new(Gcc,year,month);
+                ScoreCacheHelper sch = new(Gcc, year, month);
+                MigHelper mh = new();
+                mh.LoadData(Gcc, year, month);
+                mh.PeriodsToGcc();
+                List<PayPeriodGcc> pg = mh.pg;
+                sh.FillCalendar(pg);
+                sch.AddCache(sh.c);
+            }
+            currentmonth = currentmonth.AddMonths(1);
+        }
+
+        return 0;
+    }
+
+    public async Task<int> PGLoader() {
         CSVMigHelper c = new();
         
 
         string targetDirectory = "src/Data/Raw";
-        string [] fileEntries = Directory.GetFiles(targetDirectory);
+        string [] fileEntries = Directory.GetFiles(targetDirectory,"*.csv");
         int total = 0;
         DateTime ts = new DateTime(1981,01,01);
         foreach(string fileName in fileEntries) {
@@ -55,20 +84,17 @@ public class DBLoader
             Context.SaveChanges();  
         }
         
-        List<MigStats> mlist = new List<MigStats>();
-        var Gccs = Context.PayPeriods.Select (x => x.Gcc).Distinct().ToList();
+
+        var Gccs = Context.GccNames;
         foreach(var gcc in Gccs) {
-        mlist.Add( new()
-        {
-            Gcc = gcc,
-            LCCCount = Context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.Lcc).Distinct().Count(),
-            PGCount = Context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.PayGroup).Distinct().Count(),
-            Countrycount = Context.PayPeriods.Where(x => x.Gcc == gcc).Select(x => x.Lcc.Substring(0, 2)).Distinct().Count()
-        });
+
+            gcc.LCCCount = Context.PayPeriods.Where(x => x.Gcc == gcc.Gcc).Select(x => x.Lcc).Distinct().Count();
+            gcc.PGCount = Context.PayPeriods.Where(x => x.Gcc == gcc.Gcc).Select(x => x.PayGroup).Distinct().Count();
+            gcc.Countrycount = Context.PayPeriods.Where(x => x.Gcc == gcc.Gcc).Select(x => x.Lcc.Substring(0, 2)).Distinct().Count();
         }
-        Context.MigStats.AddRange(mlist);
+       // Context.MigStats.AddRange(mlist);
         Context.SaveChanges(); 
-        
+        await PGCacheLoader();
         return total;
         
     }

@@ -26,14 +26,16 @@ public class PGDetails
 
     public List<PayPeriod> GetDetails()
     {
-        var context = new MigHelperCtx();
+        var mh = new MigHelper();
+        mh.LoadData(this.Gcc, this.Year,this.Month);
+        return mh.pp;
 
-        DateTime pStart = new (Year, Month, 1, 0, 0, 0);
+     /*   DateTime pStart = new (Year, Month, 1, 0, 0, 0);
         DateTime pEnd = new (Year, Month, DateTime.DaysInMonth(Year, Month), 0, 0, 0);
         var pg = context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart 
                            &&  x.CutOff <= pEnd).OrderBy(x => x.Lcc).ToList();
-
-        return pg;
+*/
+    
 
     }
 

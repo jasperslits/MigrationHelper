@@ -39,7 +39,7 @@
                <td>@x.Frequency</td>
          @foreach(var z in x.calDays) {
             <td class="@z.Value.Color">&nbsp;
-               @if(z.Value.Color == "Open" || z.Value.Color == "Closed") {
+               @if(z.Value.Color == "Open" || z.Value.Color == "Closed" || z.Value.Color == "Blackout" || z.Value.Color == "CutOff") {
                   <text>&nbsp;</text>
                } else {
                @z.Value.Color

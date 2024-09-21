@@ -15,7 +15,6 @@ public class GccDetailModel : PageModel
     [BindProperty]
     public   GccNames Gcc { get; set; }
     
-    public MigStats Stats { get; set; }
 
     public GccDetailModel(ILogger<GccDetailModel> logger,MigHelperCtx context)
     {
@@ -43,7 +42,7 @@ public class GccDetailModel : PageModel
     {
      
         Gcc = _context.GccNames.FirstOrDefault(g => g.Gcc == gcc);
-        Stats = _context.MigStats.Where(x => x.Gcc == gcc).First();
+    
 
         MonthsSL = new List<SelectListItem>() { new SelectListItem { Text = "Select month", Value = "0"} };
         string[] names = new System.Globalization.DateTimeFormatInfo().MonthNames;

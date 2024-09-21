@@ -7,6 +7,7 @@ using MigrationHelper.Db;
 public class MigHelper
 {
     public List<PayPeriodGcc> pg = [];
+    public List<PayPeriod> pp = [];
 
     private MigHelperCtx _context;
 
@@ -20,13 +21,8 @@ public class MigHelper
         return _context.GccNames.OrderBy(x => x.Gcc).ToList();
     }
 
-    public void LoadData(string Gcc, int year, int month)
-    {
-        DateTime pStart = new DateTime(year, month, 1, 0, 0, 0);
-        DateTime pEnd = new DateTime(year, month, DateTime.DaysInMonth(year, month), 0, 0, 0);
-        var b = _context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart && x.CutOff <= pEnd).ToList();
-
-        List<PayPeriodGcc> x = b.DistinctBy(x => x.PayGroup).Select(o => new PayPeriodGcc
+    public void PeriodsToGcc() {
+          List<PayPeriodGcc> x = pp.DistinctBy(x => x.PayGroup).Select(o => new PayPeriodGcc
         {
             Gcc = o.Gcc,
             PayGroup = o.PayGroup,
@@ -41,10 +37,19 @@ public class MigHelper
             Payslip = o.Payslip,
             Number = o.Number,
             Frequency = o.Frequency,
-            QueueOpen = o.QueueOpen
+            QueueOpen = o.QueueOpen,
+            Offcycle = o.Offcycle
                 
         }).ToList();
         pg = x;
-        // Console.WriteLine($"Found PayPeriodGcc {x.Count} records");
+    }
+
+    public void LoadData(string Gcc, int year, int month)
+    {
+        DateTime pStart = new (year, month, 1, 0, 0, 0);
+        DateTime pEnd = new (year, month, DateTime.DaysInMonth(year, month), 0, 0, 0);
+        pp = _context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart && x.CutOff <= pEnd).ToList();
+
+// Console.WriteLine($"Found PayPeriodGcc {x.Count} records");
     }
 }
