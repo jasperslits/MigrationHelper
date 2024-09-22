@@ -39,12 +39,12 @@ public class IndexModel : PageModel
 
  
 
-    public void OnGet()
+    public async Task OnGet()
     {
         Periods = new List<Periods>();
         var currentmonth = DateTime.Now;
 
-        _cache = _context.PayPeriods.Select(a => new MonthCache { Gcc = a.Gcc, Month = a.CutOff.Month}).Distinct().ToList();
+        _cache =  await _context.PayPeriods.Select(a => new MonthCache { Gcc = a.Gcc, Month = a.CutOff.Month}).Distinct().ToListAsync();
 
         var m = new DateTime(2025,3,1);
         for(int i = 0; i < 8;i++) {
@@ -59,6 +59,6 @@ public class IndexModel : PageModel
      
      
    
-        Gccs = _context.GccNames.OrderBy(x => x.Gcc).Where(x => x.Countrycount > 0).ToList();
+        Gccs = await _context.GccNames.OrderBy(x => x.Gcc).Where(x => x.Countrycount > 0).ToListAsync();
     }
 }

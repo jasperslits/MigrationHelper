@@ -16,10 +16,10 @@ public class LoadGCCModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public async Task OnGet()
     {
         DBLoader db = new();
-        DbCount = db.GccLoader();
+        DbCount = await db.GccLoader();
       
 
     }

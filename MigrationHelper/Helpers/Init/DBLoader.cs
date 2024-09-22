@@ -12,19 +12,19 @@ public class DBLoader
         Context = new MigHelperCtx();
     }
 
-    public int GccLoader() {
+    public async Task<int> GccLoader() {
         CSVMigHelper c = new();
         Context.GccNames.RemoveRange(Context.GccNames);
         Context.SaveChanges();
  
         var results = c.ReadGcc();
    
-        Context.AddRange(results);
-        Context.SaveChanges();
+       await Context.AddRangeAsync(results);
+        await Context.SaveChangesAsync();
         return results.Count;
     }
 
-     public int CountryLoader() {
+     public async Task<int> CountryLoader() {
         CSVCountries c = new();
        
         Context.Countries.RemoveRange(Context.Countries);
@@ -33,7 +33,7 @@ public class DBLoader
         var results = c.ReadCountries("src/Data/countries.csv");
    
         Context.AddRange(results);
-        Context.SaveChanges();
+        await Context.SaveChangesAsync();
         return results.Count;
     }
 
@@ -74,12 +74,12 @@ public class DBLoader
         string targetDirectory = "src/Data/Raw";
         string [] fileEntries = Directory.GetFiles(targetDirectory,"*.csv");
         int total = 0;
-        DateTime ts = new DateTime(1981,01,01);
+        DateTime ts = new(1981,01,01);
         foreach(string fileName in fileEntries) {
          
-            var results = c.ReadPg(fileName);
+            var results = await c.ReadPg(fileName);
             results = results.Where(x => x.Close > ts && x.CutOff > ts && x.Open > ts && x.PayDate > ts).ToList();
-            Context.AddRange(results);
+            await Context.AddRangeAsync(results);
             total+=results.Count;
             
         }

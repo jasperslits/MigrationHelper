@@ -16,10 +16,10 @@ public class CountriesModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public async Task OnGet()
     {
         DBLoader db = new();
-        DbCount = db.CountryLoader();
+        DbCount = await db.CountryLoader();
       
 
     }

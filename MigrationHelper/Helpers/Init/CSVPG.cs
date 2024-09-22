@@ -10,12 +10,12 @@ public class CSVMigHelper
 {
 
     private string Path { get; set; }
-    private void Fixdates()
+    private async Task Fixdates()
     {
 
-        string text = File.ReadAllText(Path);
+        string text = await File.ReadAllTextAsync(Path);
         text = text.Replace("%results/CUTOFFDATE%", "");
-        File.WriteAllText(Path, text);
+        await File.WriteAllTextAsync(Path, text);
 
     }
 
@@ -42,11 +42,11 @@ public class CSVMigHelper
     }
 
 
-    public List<PayPeriod> ReadPg(string path)
+    public async Task<List<PayPeriod>> ReadPg(string path)
     {
         Path = path;
 
-        Fixdates();
+        await Fixdates();
 
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
@@ -59,11 +59,12 @@ public class CSVMigHelper
         using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, config))
         {
-            Console.WriteLine($"Reading {path}");
+           
             csv.Context.RegisterClassMap<ServiceProvidedMapPG>();
             records = csv.GetRecords<PayPeriod>().ToList();
 
         }
+         Console.WriteLine($"Reading {path} with {records.Count} records");
         return records;
     }
 }

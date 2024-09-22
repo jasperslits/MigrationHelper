@@ -17,14 +17,12 @@ public class ScoreCacheHelper
     private MigHelperCtx _Ctx;
     private string Gcc;
     private int Month;
-
      private int Year;
     public ScoreCacheHelper(string gcc, int year, int month) {
          _Ctx = new MigHelperCtx();
          Gcc = gcc;
          Month = month;
          Year = year;
-
     }
 
     public List<CalDay> GetCache() {
@@ -49,8 +47,8 @@ public class ScoreCacheHelper
         }
        }
 
-        _Ctx.ScoreCache.AddRange(sc);
-        _Ctx.ScoreBreakdown.AddRange(sb);
+        await _Ctx.ScoreCache.AddRangeAsync(sc);
+        await _Ctx.ScoreBreakdown.AddRangeAsync(sb);
         await _Ctx.SaveChangesAsync();
     }
 }

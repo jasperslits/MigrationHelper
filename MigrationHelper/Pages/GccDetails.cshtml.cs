@@ -54,14 +54,12 @@ public class GccDetailModel : PageModel
     
         YearsSL = new List<SelectListItem>
         {
-            new SelectListItem
-            {
+            new() {
                 Text = "2024",
                 Value = "2024",
                 Selected = 2024 == Gcc.Year
             },
-            new SelectListItem
-            {
+            new() {
                 Text = "2025",
                 Value = "2025",
                 Selected = 2025 == Gcc.Year

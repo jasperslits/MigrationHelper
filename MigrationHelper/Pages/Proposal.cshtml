@@ -4,14 +4,14 @@
     ViewData["Title"] = "Home page";
 }
 
-<h2>GCC overview</h2>
+<h2>Migration date proposals</h2>
 
 
 
 <table class="table">
 <thead>
     <tr>
-        <th>Gcc</th>
+        <th>GCC</th>
         <th>Name</th>
         @foreach(var y in @Model.Periods) {
             <th>@y.MonthName</th>
@@ -27,7 +27,7 @@
     
                 @foreach(var y in @Model.Periods) {
                 
-                 <td class="@Model.CheckMonth(x.Gcc,y.Year,x.Month,y.Month)"> 
+                 <td> 
                     <a asp-page="/GccView" asp-route-gcc="@x.Gcc" asp-route-year="@y.Year" asp-route-month="@y.Month">@Html.Raw(Model.Days(x.Gcc,y.Year,y.Month))</a>
                 </td>
             }

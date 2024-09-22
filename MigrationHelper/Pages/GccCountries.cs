@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using MigrationHelper.Db;
 using MigrationHelper.Models;
 
@@ -20,12 +21,12 @@ public class GccCountriesModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet(string gcc)
+    public async Task OnGet(string gcc)
     {
      
         Gcc = _context.GccNames.FirstOrDefault(g => g.Gcc == gcc);
-        List<string> cts = _context.PayPeriods.Where(g => g.Gcc == gcc).Select(x => x.Lcc.Substring(0,2)).Distinct().ToList();
-        Countries = _context.Countries.Where(x => cts.Contains(x.Code)).ToList();
+        List<string> cts = await _context.PayPeriods.Where(g => g.Gcc == gcc).Select(x => x.Lcc.Substring(0,2)).Distinct().ToListAsync();
+        Countries = await _context.Countries.Where(x => cts.Contains(x.Code)).ToListAsync();
       
     }
 }
