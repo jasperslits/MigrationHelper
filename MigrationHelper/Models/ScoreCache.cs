@@ -37,7 +37,7 @@ public class ScoreCacheHelper
         return cd;
     }
 
-    public void AddCache(Dictionary<int, CalDay> cd) {
+    public async void AddCache(Dictionary<int, CalDay> cd) {
        
        List<ScoreCache> sc = new();
        List<ScoreBreakdown> sb = new();
@@ -51,6 +51,6 @@ public class ScoreCacheHelper
 
         _Ctx.ScoreCache.AddRange(sc);
         _Ctx.ScoreBreakdown.AddRange(sb);
-        _Ctx.SaveChanges();
+        await _Ctx.SaveChangesAsync();
     }
 }

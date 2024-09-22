@@ -3,6 +3,7 @@ namespace MigrationHelper.BL;
 using MigrationHelper.Models;
 
 using MigrationHelper.Db;
+using Microsoft.EntityFrameworkCore;
 
 public class MigHelper
 {
@@ -44,11 +45,12 @@ public class MigHelper
         pg = x;
     }
 
-    public void LoadData(string Gcc, int year, int month)
+    public async Task<int> LoadData(string Gcc, int year, int month)
     {
         DateTime pStart = new (year, month, 1, 0, 0, 0);
         DateTime pEnd = new (year, month, DateTime.DaysInMonth(year, month), 0, 0, 0);
-        pp = _context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart && x.CutOff <= pEnd).ToList();
+        pp = await _context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart && x.CutOff <= pEnd).ToListAsync();
+        return pp.Count();
 
 // Console.WriteLine($"Found PayPeriodGcc {x.Count} records");
     }

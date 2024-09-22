@@ -59,6 +59,6 @@ public class IndexModel : PageModel
      
      
    
-        Gccs = _context.GccNames.OrderBy(x => x.Gcc).ToList();
+        Gccs = _context.GccNames.OrderBy(x => x.Gcc).Where(x => x.Countrycount > 0).ToList();
     }
 }

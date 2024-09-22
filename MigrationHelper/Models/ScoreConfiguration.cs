@@ -3,7 +3,7 @@ namespace MigrationHelper.Models;
 public enum ScoreConfiguration : int
 {
 
-    Weekend = 0,
+    Weekend = -10,
    CutOff = -2,
    PayDate = -2,
     NextPayDate = -1,

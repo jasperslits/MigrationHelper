@@ -14,9 +14,9 @@ public class PGDetails
 
     public PGDetails(string gcc, int year, int month)
     {
-        this.Month = month;
-        this.Year = year;
-        this.Gcc = gcc;
+        Month = month;
+        Year = year;
+        Gcc = gcc;
         c = new Calendar(year, month).Days;
     }
 
@@ -24,10 +24,10 @@ public class PGDetails
         return c;
     }
 
-    public List<PayPeriod> GetDetails()
+    public async Task<List<PayPeriod>> GetDetails()
     {
         var mh = new MigHelper();
-        mh.LoadData(this.Gcc, this.Year,this.Month);
+        await mh.LoadData(Gcc, Year,Month);
         return mh.pp;
 
      /*   DateTime pStart = new (Year, Month, 1, 0, 0, 0);

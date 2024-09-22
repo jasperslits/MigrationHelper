@@ -44,24 +44,41 @@ public class ProposalModel : PageModel
     public string Days(string gcc,int year,int month) 
     {
         string daytwo = "";
-        var res = _scores.Where(x => x.Gcc == gcc && x.Month == month && x.Year == year && x.Percentage > 0).OrderByDescending(x => x.Score).FirstOrDefault();
-             if (res == null) {
+        Dictionary<int,int> dayx = new();
+      
+        var res = _scores.Where(x => x.Gcc == gcc && x.Month == month && x.Year == year && x.Percentage > 0).Select(t => new { t.Day, t.Percentage} ).ToDictionary( t => t.Day,t => t);
+        if (res.Count == 0) {
             return "No data";
         } else {
-            var nextday = _scores.Where(x => x.Gcc == gcc && x.Month == month && x.Year == year && x.Day== res.Day+1).OrderByDescending(x => x.Score).FirstOrDefault();
-            if (nextday == null) { daytwo = "No data";} else { 
-                daytwo = $"\n{nextday.Day} ({nextday.Percentage}%)";
+
+            foreach(var q in res) {
+                if (res.ContainsKey(q.Key+1)) {
+                    dayx[q.Key] = q.Value.Percentage + res[q.Key + 1].Percentage;
+                }
             }
-            return $"{res.Day} ({res.Percentage}%){daytwo}";
+                
+        }
+        var top = dayx.OrderByDescending(x => x.Value).First().Key;
+ 
+        int dayOnePercentage = res[top].Percentage;
+        int dayTwoPercentage = res[top+1].Percentage;
+        return $"{top} ({dayOnePercentage}%)<br/>{top+1} ({dayTwoPercentage})%";
+
+
+       //     var nextday = _scores.Where(x => x.Gcc == gcc && x.Month == month && x.Year == year && x.Day== res.Day+1).OrderByDescending(x => x.Score).FirstOrDefault();
+       //     if (nextday == null) { daytwo = "No data";} else { 
+       //         daytwo = $"{nextday.Day} ({nextday.Percentage}%)";
+       //     }
+       //     return $"{res.Day} ({res.Percentage}%)<br/>{daytwo}";
       
         }
       
-    }
+    
  
 
     public async Task OnGet()
     {
-        Periods = new List<Periods>();
+        Periods = new();
         var currentmonth = DateTime.Now;
 
         _cache = _context.PayPeriods.Select(a => new MonthCache { Gcc = a.Gcc, Month = a.CutOff.Month}).Distinct().ToList();
@@ -79,6 +96,6 @@ public class ProposalModel : PageModel
      
      
    
-        Gccs = _context.GccNames.OrderBy(x => x.Gcc).ToList();
+        Gccs = _context.GccNames.Where(x => x.Countrycount > 0).OrderBy(x => x.Gcc).ToList();
     }
 }

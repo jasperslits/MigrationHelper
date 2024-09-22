@@ -58,7 +58,7 @@ public class PayGroupDetails : PageModel
 
     public List<PGD> pgd = new();
 
-    public void OnGet(string gcc, int year, int month)
+    public async void OnGet(string gcc, int year, int month)
     {
         Gcc = _context.GccNames.Where(x => x.Gcc == gcc).First(); ;
         Month = month;
@@ -66,7 +66,7 @@ public class PayGroupDetails : PageModel
         PGDetails Pd = new(gcc, year, month);
         //  Helper h = new(gcc,month);
         Cal = new Calendar(year, month).Days;
-        var Results = Pd.GetDetails();
+        var Results = await Pd.GetDetails();
         foreach(var x in Results) {
             var res = pgd.Where( y => y.Lcc == x.Lcc && y.PayGroup == x.PayGroup);
             if (res.Count() == 0) {

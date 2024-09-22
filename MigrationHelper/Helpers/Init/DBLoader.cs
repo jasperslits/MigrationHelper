@@ -38,7 +38,7 @@ public class DBLoader
     }
 
     private async Task<int> PGCacheLoader() {
-        DateTime dt = DateTime.Now;
+     //   DateTime dt = DateTime.Now;
 
         var currentmonth = DateTime.Now;
         var m = new DateTime(2025,3,1);
@@ -55,7 +55,7 @@ public class DBLoader
                 ScoreHelper sh = new(Gcc,year,month);
                 ScoreCacheHelper sch = new(Gcc, year, month);
                 MigHelper mh = new();
-                mh.LoadData(Gcc, year, month);
+                await mh.LoadData(Gcc, year, month);
                 mh.PeriodsToGcc();
                 List<PayPeriodGcc> pg = mh.pg;
                 sh.FillCalendar(pg);
@@ -81,9 +81,9 @@ public class DBLoader
             results = results.Where(x => x.Close > ts && x.CutOff > ts && x.Open > ts && x.PayDate > ts).ToList();
             Context.AddRange(results);
             total+=results.Count;
-            Context.SaveChanges();  
+            
         }
-        
+        await Context.SaveChangesAsync();          
 
         var Gccs = Context.GccNames;
         foreach(var gcc in Gccs) {
@@ -93,7 +93,7 @@ public class DBLoader
             gcc.Countrycount = Context.PayPeriods.Where(x => x.Gcc == gcc.Gcc).Select(x => x.Lcc.Substring(0, 2)).Distinct().Count();
         }
        // Context.MigStats.AddRange(mlist);
-        Context.SaveChanges(); 
+        await Context.SaveChangesAsync(); 
         await PGCacheLoader();
         return total;
         

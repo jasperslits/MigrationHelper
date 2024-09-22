@@ -28,7 +28,7 @@
                 @foreach(var y in @Model.Periods) {
                 
                  <td class="@Model.CheckMonth(x.Gcc,y.Year,x.Month,y.Month)"> 
-                    <a asp-page="/GccView" asp-route-gcc="@x.Gcc" asp-route-year="@y.Year" asp-route-month="@y.Month">@Model.Days(x.Gcc,y.Year,y.Month)</a>
+                    <a asp-page="/GccView" asp-route-gcc="@x.Gcc" asp-route-year="@y.Year" asp-route-month="@y.Month">@Html.Raw(Model.Days(x.Gcc,y.Year,y.Month))</a>
                 </td>
             }
             </tr>
