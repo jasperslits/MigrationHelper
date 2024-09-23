@@ -133,7 +133,7 @@ public class ServiceProvidedMapPG : ClassMap<PayPeriod>
         Map(m => m.PCStartDate).Name("PC_START_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
         Map(m => m.PCEndDate).Name("PC_END_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
         Map(m => m.QueueOpen).Name("QUEUE_OPEN").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
-        // Map(m => m.Offcycle).Name("OFFCYCLE").Default(0);
+        Map(m => m.Offcycle).Name("OFFCYCLE").Default(0);
         Map(m => m.Payslip).Name("PAYSLIP_DATE").TypeConverterOption.Format("yyyy-MM-dd").Default(ts);
     }
 }

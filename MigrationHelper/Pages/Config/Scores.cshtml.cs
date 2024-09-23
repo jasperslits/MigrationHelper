@@ -42,10 +42,6 @@ public class ScoresModel : PageModel
 
     public async Task OnGet()
     {
-     
         Sc = await _context.ScoreConfig.FirstOrDefaultAsync();
-    
-
-        
     }
 }

@@ -60,7 +60,7 @@ public class ScoreHelper
                     continue;
                 }
 
-                if (Month == 12 && Year == 2024 && dt.Day > 23) {
+                if (Month == 12 && Year == 2024 && dt.Day >= 23) {
                     CalendarDays[a.Key].Score += Sc.CutOff;
                     CalendarDays[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Christmas blackout for {p.PayGroup}", Sc = Sc.CutOff });
                     continue;   
@@ -90,9 +90,9 @@ public class ScoreHelper
                 }
                 if (p.PayDate.Day + 1 == dt.Day)
                 {
-                    CalendarDays[a.Key].Score += Sc.NextPayDate;
-                    CalendarDays[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay date +1 for pay group {p.PayGroup}", Sc = Sc.NextPayDate });
-                    continue;
+               //     CalendarDays[a.Key].Score += Sc.NextPayDate;
+               //     CalendarDays[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay date +1 for pay group {p.PayGroup}", Sc = Sc.NextPayDate });
+               //     continue;
                 }
 
                 if (dt.Day <= p.QueueOpen.Day && p.QueueOpen > p.PCEndDate && p.Frequency == "monthly")
@@ -102,22 +102,15 @@ public class ScoreHelper
                     continue;
                 }
 
-                Closed = dt.Day >= p.CutOff.Day && dt.Day <= p.QueueOpen.Day;
+                Closed = dt.Day >= p.CutOff.Day && dt.Day <= p.PayDate.Day;
                 if (Closed)
                 {
                     CalendarDays[a.Key].Score += Sc.BlockedAfterClose;
                     CalendarDays[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Pay group {p.PayGroup} is closed", Sc = Sc.BlockedAfterClose });
-                    continue;
-                }
-
-                if (!Closed)
-                //   if (c[a.Key].Score >= 0 && ! notClosed)
-                {
+                } else {
                     CalendarDays[a.Key].Score += Sc.FreeAfterClose;
                     CalendarDays[a.Key].Details.Add(new ScoreBreakdownMessage { Message = $"Free slot for pay group {p.PayGroup}", Sc = Sc.FreeAfterClose });
-                    continue;
                 }
-
             }
         }
 
