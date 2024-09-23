@@ -21,7 +21,7 @@ public class GccViewModel : PageModel
 
      private readonly MigHelperCtx _context;
 
-     public Dictionary<string,int> keyValuePairs= new Dictionary<string,int>();
+     public Dictionary<string,int> keyValuePairs= [];
 
     public GccViewModel(ILogger<GccViewModel> logger,MigHelperCtx context)
     {
@@ -47,19 +47,21 @@ public class GccViewModel : PageModel
     {
         Month = month;
         Year = year;
-        ScoreHelper h = new(gcc,year,month);
+        ScoreConfig ScoreConfiguration = _context.ScoreConfig.First();
+        ScoreHelper h = new(ScoreConfiguration,gcc,year,month);
         
-        keyValuePairs.Add("Weekend",(int)ScoreConfiguration.Weekend);
-        keyValuePairs.Add("Cut-off",(int)ScoreConfiguration.CutOff);
-        keyValuePairs.Add("Cut-off -1",(int)ScoreConfiguration.CutOffBlackout);
-        keyValuePairs.Add("Cut-off -2",(int)ScoreConfiguration.CutOffBlackout);
-        keyValuePairs.Add("Pay date",(int)ScoreConfiguration.PayDate);
-        keyValuePairs.Add("Pay date +1",(int)ScoreConfiguration.NextPayDate);
-        keyValuePairs.Add("Between cutoff and queue open",(int)ScoreConfiguration.BlockedAfterClose);
-        keyValuePairs.Add("Free slot before cut-off",(int)ScoreConfiguration.Free);
-        keyValuePairs.Add("Free slot after cut-off",(int)ScoreConfiguration.FreeAfterClose);
+        keyValuePairs.Add("Saturday",ScoreConfiguration.Saturday);
+        keyValuePairs.Add("Sunday",ScoreConfiguration.Sunday);
+        keyValuePairs.Add("Cut-off",ScoreConfiguration.CutOff);
+        keyValuePairs.Add("Cut-off -1",ScoreConfiguration.CutOffBlackout);
+        keyValuePairs.Add("Cut-off -2",ScoreConfiguration.CutOffBlackout);
+        keyValuePairs.Add("Pay date",ScoreConfiguration.PayDate);
+        keyValuePairs.Add("Pay date +1",ScoreConfiguration.NextPayDate);
+        keyValuePairs.Add("Between cutoff and queue open",ScoreConfiguration.BlockedAfterClose);
+        keyValuePairs.Add("Free slot before cut-off",ScoreConfiguration.Free);
+        keyValuePairs.Add("Free slot after cut-off",ScoreConfiguration.FreeAfterClose);
 
-        oh = new(h.c);
+        oh = new(h.CalendarDays);
   
         MonthName = Helpers.Toolbox.MonthToName(year,month);
         Gcc = _context.GccNames.Where(x => x.Gcc == gcc).First();

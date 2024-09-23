@@ -19,12 +19,12 @@ public class LoadPGModel : PageModel
         _logger = logger;
     }
 
-    public async void OnGet()
+    public async Task OnGet()
     {
         await _context.PayPeriods.ExecuteDeleteAsync();
         await _context.ScoreCache.ExecuteDeleteAsync();
         await _context.ScoreBreakdown.ExecuteDeleteAsync();
-        DBLoader db = new DBLoader();
+        DBLoader db = new();
         DbCount = await db.PGLoader();
         
 

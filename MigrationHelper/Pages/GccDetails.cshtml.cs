@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MigrationHelper.Db;
 using MigrationHelper.Models;
 using MigrationHelper.BL;
+using Microsoft.EntityFrameworkCore;
 
 namespace MigrationHelper.Pages;
 
@@ -38,13 +39,13 @@ public class GccDetailModel : PageModel
         return RedirectToPage("./Index");
     }
 
-    public void OnGet(string gcc)
+    public async Task OnGet(string gcc)
     {
      
-        Gcc = _context.GccNames.FirstOrDefault(g => g.Gcc == gcc);
+        Gcc = await _context.GccNames.FirstOrDefaultAsync(g => g.Gcc == gcc);
     
 
-        MonthsSL = new List<SelectListItem>() { new SelectListItem { Text = "Select month", Value = "0"} };
+        MonthsSL = [new SelectListItem { Text = "Select month", Value = "0"}];
         string[] names = new System.Globalization.DateTimeFormatInfo().MonthNames;
 
         foreach(var name in names) {
@@ -52,8 +53,8 @@ public class GccDetailModel : PageModel
             MonthsSL.Add(new SelectListItem { Text = name, Value = monthnr.ToString(), Selected = monthnr == Gcc.Month });
         }
     
-        YearsSL = new List<SelectListItem>
-        {
+        YearsSL =
+        [
             new() {
                 Text = "2024",
                 Value = "2024",
@@ -64,6 +65,6 @@ public class GccDetailModel : PageModel
                 Value = "2025",
                 Selected = 2025 == Gcc.Year
             }
-        };
+        ];
     }
 }

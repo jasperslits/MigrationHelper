@@ -1,0 +1,67 @@
+﻿@page
+@model ScoresModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h2>Score configuration</h2>
+
+<h3>Changes to scores recalculate results</h3>
+<form method="post">
+<input type="hidden" asp-for="@Model.Sc.Id"/>
+<table class="table small">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        <tr>
+            <td>Saturday</td>
+            <td><input asp-for="@Model.Sc.Saturday"/> <span asp-validation-for="@Model.Sc.Saturday" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td>Sunday</td>
+            <td><input asp-for="@Model.Sc.Sunday"/> <span asp-validation-for="@Model.Sc.Sunday" class="text-danger"></span></td>
+        </tr>
+          <tr>
+            <td>CutOff</td>
+            <td><input asp-for="@Model.Sc.CutOff"/><span asp-validation-for="@Model.Sc.CutOff" class="text-danger"></span></td>
+        </tr>
+             <tr>
+            <td>Pay date</td>
+            <td><input asp-for="@Model.Sc.PayDate"/><span asp-validation-for="@Model.Sc.PayDate" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td>Next Pay Date</td>
+            <td><input asp-for="@Model.Sc.NextPayDate"/><span asp-validation-for="@Model.Sc.NextPayDate" class="text-danger"></span></td>
+        </tr>
+          <tr>
+            <td>Free</td>
+            <td><input asp-for="@Model.Sc.Free"/><span asp-validation-for="@Model.Sc.Free" class="text-danger"></span></td>
+        </tr>
+          <tr>
+            <td>Free After Close</td>
+            <td><input asp-for="@Model.Sc.FreeAfterClose"/><span asp-validation-for="@Model.Sc.FreeAfterClose" class="text-danger"></span></td>
+        </tr>
+
+        <tr>
+            <td>Blocked After Close</td>
+            <td><input asp-for="@Model.Sc.BlockedAfterClose"/><span asp-validation-for="@Model.Sc.BlockedAfterClose" class="text-danger"></span></td>
+        </tr>
+          <tr>
+            <td>CutOff Blackout</td>
+            <td><input asp-for="@Model.Sc.CutOffBlackout"/><br/><span asp-validation-for="@Model.Sc.CutOffBlackout" class="text-danger"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Save"></td>
+        </tr>
+    </tbody>
+</table>
+
+</form>
+
+<a asp-page="/Index">Back to overview</a>

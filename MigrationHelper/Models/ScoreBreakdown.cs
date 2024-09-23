@@ -4,7 +4,7 @@ namespace MigrationHelper.Models;
 
 public class ScoreBreakdownMessage {
 
-    public ScoreConfiguration Sc {get;set;}
+    public int Sc {get;set;}
 
     public string Message { get; set; }
 }

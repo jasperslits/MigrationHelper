@@ -3,40 +3,24 @@ using MigrationHelper.Db;
 using MigrationHelper.BL;
 
 
-public class PGDetails
+public class PGDetails(string gcc, int year, int month)
 {
 
-    private int Month { get; set; }
-    private int Year { get; set; }
+    private int Month { get; set; } = month;
+    private int Year { get; set; } = year;
 
-    private string Gcc { get; set; }
-    public Dictionary<int, CalDay> c { get; set; }
-
-    public PGDetails(string gcc, int year, int month)
-    {
-        Month = month;
-        Year = year;
-        Gcc = gcc;
-        c = new Calendar(year, month).Days;
-    }
+    private string Gcc { get; set; } = gcc;
+    private Dictionary<int, CalDay> C { get; set; } = new Calendar(year, month).Days;
 
     public Dictionary<int, CalDay> GetCalendar() {
-        return c;
+        return C;
     }
 
     public async Task<List<PayPeriod>> GetDetails()
     {
-        var mh = new MigHelper();
+        MigHelper mh = new();
         await mh.LoadData(Gcc, Year,Month);
         return mh.pp;
-
-     /*   DateTime pStart = new (Year, Month, 1, 0, 0, 0);
-        DateTime pEnd = new (Year, Month, DateTime.DaysInMonth(Year, Month), 0, 0, 0);
-        var pg = context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart 
-                           &&  x.CutOff <= pEnd).OrderBy(x => x.Lcc).ToList();
-*/
-    
-
     }
 
 

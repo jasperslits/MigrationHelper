@@ -9,9 +9,6 @@ public class MonthviewModel : PageModel
 {
     private readonly ILogger<MonthviewModel> _logger;
 
-
-    public List<GccNames> Gcc { get; set; }
-
     public IQueryable<IGrouping<int,GccNames>> Res{ get; set; }
 
     private readonly MigHelperCtx _context;
@@ -21,8 +18,8 @@ public class MonthviewModel : PageModel
         if (nr == 0) {
             return "No month";
         }
-        int year = 2024;
-        if (nr < 9) year = 2025;
+  
+        int year = (nr >=1 && nr < 9) ? 2025: 2024;
         return Helpers.Toolbox.MonthToName(year,nr);
     }
 

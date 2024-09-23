@@ -59,7 +59,7 @@ namespace MigrationHelper.Migrations
                     b.Property<int>("PGCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Year")
+                    b.Property<int>("Year")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("GccNamesId");
@@ -189,6 +189,44 @@ namespace MigrationHelper.Migrations
                     b.HasKey("ScoreCacheId");
 
                     b.ToTable("ScoreCache");
+                });
+
+            modelBuilder.Entity("MigrationHelper.Models.ScoreConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BlockedAfterClose")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CutOff")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CutOffBlackout")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Free")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FreeAfterClose")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NextPayDate")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PayDate")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Saturday")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Sunday")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ScoreConfig");
                 });
 #pragma warning restore 612, 618
         }

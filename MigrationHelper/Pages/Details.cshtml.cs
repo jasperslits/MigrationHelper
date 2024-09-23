@@ -14,7 +14,7 @@ public class DetailModel : PageModel
     public List<ScoreBreakdownMessage> Details { get; set;}
 
     [BindProperty]
-    public ScoreConfiguration sc {get;set;}
+    public ScoreConfig sc {get;set;}
 
     public GccNames Gcc { get; set; }
 
@@ -26,13 +26,6 @@ public class DetailModel : PageModel
 
     public string FormattedDay { get; set; } = "";
 
-    
-
-    public int ToInt(ScoreConfiguration val) {
-
-        return (int)val;
-    }
-
     public DetailModel(ILogger<DetailModel> logger,MigHelperCtx context)
     {
         _logger = logger;
@@ -41,9 +34,10 @@ public class DetailModel : PageModel
 
     public void OnGet(string gcc, int year, int month, int day)
     {
-        ScoreHelper h = new(gcc,year,month);
-        sc = new ScoreConfiguration();
-        var res = h.c;
+        sc = _context.ScoreConfig.First();
+        ScoreHelper h = new(sc,gcc,year,month);
+        
+        var res = h.CalendarDays;
         Gcc = _context.GccNames.Where(x => x.Gcc == gcc).Single();
         Month = month;
         Day = day;

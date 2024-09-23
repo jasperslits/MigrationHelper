@@ -1,5 +1,6 @@
 namespace MigrationHelper.Models;
 
+using Microsoft.EntityFrameworkCore;
 using MigrationHelper.Db;
 
 public class ScoreCache : CalDay
@@ -12,21 +13,15 @@ public class ScoreCache : CalDay
 
 }
 
-public class ScoreCacheHelper 
+public class ScoreCacheHelper(string gcc, int year, int month)
 {
-    private MigHelperCtx _Ctx;
-    private string Gcc;
-    private int Month;
-     private int Year;
-    public ScoreCacheHelper(string gcc, int year, int month) {
-         _Ctx = new MigHelperCtx();
-         Gcc = gcc;
-         Month = month;
-         Year = year;
-    }
+    private readonly MigHelperCtx _Ctx = new();
+    private readonly string Gcc = gcc;
+    private readonly int Month = month;
+     private readonly int Year = year;
 
     public List<CalDay> GetCache() {
-        List<CalDay> cd = new();
+        List<CalDay> cd = [];
         var res = _Ctx.ScoreCache.Where(x => x.Gcc == Gcc && x.Month == Month && x.Year == Year).ToList();
         foreach(ScoreCache x in res) {
             cd.Add( new CalDay { Day = x.Day, Percentage = x.Percentage, Score = x.Score, Name = x.Name});
@@ -37,8 +32,8 @@ public class ScoreCacheHelper
 
     public async void AddCache(Dictionary<int, CalDay> cd) {
        
-       List<ScoreCache> sc = new();
-       List<ScoreBreakdown> sb = new();
+       List<ScoreCache> sc = [];
+       List<ScoreBreakdown> sb = [];
        foreach(var y in cd) {
         CalDay x = y.Value;
         sc.Add ( new ScoreCache { Gcc = Gcc, Month = Month, Year = Year, Day = x.Day, Name = x.Name, Percentage = x.Percentage, Score = x.Score });

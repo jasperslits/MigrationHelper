@@ -22,10 +22,7 @@ public class PayPeriodGcc {
     public string Frequency {get;set;}
     public DateTime PCStartDate { get; set; }
 
-
     public DateTime PCEndDate { get; set; }
-
-
     public DateTime PayStartDate { get; set; }
 
     public DateTime PayEndDate { get; set; }

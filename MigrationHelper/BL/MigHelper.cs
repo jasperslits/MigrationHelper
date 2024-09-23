@@ -10,7 +10,7 @@ public class MigHelper
     public List<PayPeriodGcc> pg = [];
     public List<PayPeriod> pp = [];
 
-    private MigHelperCtx _context;
+    private readonly MigHelperCtx _context;
 
     public MigHelper()
     {
@@ -52,6 +52,5 @@ public class MigHelper
         pp = await _context.PayPeriods.Where(x => x.Gcc == Gcc && x.CutOff >= pStart && x.CutOff <= pEnd).ToListAsync();
         return pp.Count();
 
-// Console.WriteLine($"Found PayPeriodGcc {x.Count} records");
     }
 }

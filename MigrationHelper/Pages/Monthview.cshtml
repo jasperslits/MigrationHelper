@@ -10,7 +10,9 @@
 
 @foreach(var x in Model.Res) {
   <table class="table small">
-  <tr><td colspan="2"><b>@Model.FormatMonth(x.Key)</b></td></tr>
+  <tr>
+    <td colspan="2"><b>@Model.FormatMonth(x.Key)</b></td>
+  </tr>
 
   @foreach(var n in x) {
     <tr>

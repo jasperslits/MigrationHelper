@@ -56,7 +56,7 @@ public class PayGroupDetails : PageModel
       //  return "Closed";
     }
 
-    public List<PGD> pgd = new();
+    public List<PGD> pgd = [];
 
     public async void OnGet(string gcc, int year, int month)
     {

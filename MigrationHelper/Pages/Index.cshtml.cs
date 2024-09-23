@@ -41,7 +41,7 @@ public class IndexModel : PageModel
 
     public async Task OnGet()
     {
-        Periods = new List<Periods>();
+        Periods = [];
         var currentmonth = DateTime.Now;
 
         _cache =  await _context.PayPeriods.Select(a => new MonthCache { Gcc = a.Gcc, Month = a.CutOff.Month}).Distinct().ToListAsync();

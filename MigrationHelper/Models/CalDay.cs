@@ -13,6 +13,6 @@ public class CalDay
     public string Color { get; set; } = "green";
 
     [NotMapped]
-    public List<ScoreBreakdownMessage> Details { get; set; } = new();
+    public List<ScoreBreakdownMessage> Details { get; set; } = [];
 }
 
