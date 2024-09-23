@@ -10,31 +10,27 @@ namespace MigrationHelper.Pages;
 
 
 
-public class ProposalModel : PageModel
+public class ProposalModel(ILogger<ProposalModel> logger, MigHelperCtx context) : PageModel
 {
-    private readonly ILogger<ProposalModel> _logger;
+    private readonly ILogger<ProposalModel> _logger = logger;
 
-    private readonly MigHelperCtx _context;
+    private readonly MigHelperCtx _context = context;
 
     private List<ScoreCache> _scores;
     public List<GccNames> Gccs { get; set; }
     public List<Periods> Periods { get; set; }
 
-
-
-    public ProposalModel(ILogger<ProposalModel> logger,MigHelperCtx context)
-    {
-        _logger = logger;
-        _context = context;
-    }
-
     public string Days(string gcc,int year,int month) 
     {
         Dictionary<int,int> dayx = [];
       
-        var res = _scores.Where(x => x.Gcc == gcc && x.Month == month && x.Year == year && x.Percentage > 0).Select(t => new { t.Day, t.Percentage} ).ToDictionary( t => t.Day,t => t.Percentage);
-        if (res.Count == 0) {
+        var res2 = _scores.Where(x => x.Gcc == gcc && x.Month == month && x.Year == year).ToList();
+        if (!res2.Any()) {
             return "No data";
+        }
+        var res = res2.Where(x => x.Percentage > 0).Select(t => new { t.Day, t.Percentage} ).ToDictionary( t => t.Day,t => t.Percentage);
+        if (res.Count == 0) {
+            return "No OK scores";
         } else {
 
             foreach(var q in res) {
@@ -43,6 +39,9 @@ public class ProposalModel : PageModel
                 }
             }
                 
+        }
+        if (dayx.Count == 0) {
+            return "No OK dates";
         }
         int top = dayx.OrderByDescending(x => x.Value).First().Key;
         int dayOnePercentage = res[top];

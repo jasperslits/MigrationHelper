@@ -42,8 +42,8 @@ public class PayGroupDetails : PageModel
       //  if (day == p.PCEndDate.Day) return "PYend";
   //      if (day == p.PayStartDate.Day) return "PreviewPayroll";
    //     if (day == p.PayEndDate.Day) return "PreviewCutOff";
-     //    if (day == p.Payslip.Day) return "Payslip";
-        if (day >= p.CutOff.Day && day <= p.Payslip.Day) return "Closed";
+         if (day == p.Payslip.Day) return "Closed";
+        if (day >= p.CutOff.Day && day <= p.PayDate.Day) return "Closed";
         if (day <= p.QueueOpen.Day && p.QueueOpen > p.PCEndDate && p.Frequency == "monthly") {
             return "Closed";
         }
