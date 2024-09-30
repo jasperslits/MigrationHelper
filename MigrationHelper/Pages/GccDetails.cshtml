@@ -6,47 +6,53 @@
 
 <h2>Migration details for @Model.Gcc.Gcc - @Model.Gcc.Name </h2>
 <form method="post">
-    <input type="hidden" asp-for="@Model.Gcc.GccNamesId"/>
-    <input type="hidden" asp-for="@Model.Gcc.Gcc"/>
-    <input type="hidden" asp-for="@Model.Gcc.Name"/>
-<table class="table small">
-    <thead>
-        <tr>
-            <th>Field</th>
-            <th>Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Year</td>
-            <td><select asp-for="@Model.Gcc.Year" asp-items="@Model.YearsSL"></select></td>
-        </tr>
-        <tr>
-            <td>Month</td>
-            <td><select asp-for="@Model.Gcc.Month" asp-items="@Model.MonthsSL"></select></td>
-        </tr>
-        <tr>
-            <td>Migrated?</td>
-            <td><input type="checkbox" asp-for="@Model.Gcc.Migrated" checked="@Model.Gcc.Migrated"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Save"></td>
-        </tr>
-    </tbody>
-</table>
+    <input type="hidden" asp-for="@Model.Gcc.GccNamesId" />
+    <input type="hidden" asp-for="@Model.Gcc.Gcc" />
+    <input type="hidden" asp-for="@Model.Gcc.Name" />
+    <input type="hidden" asp-for="@Model.Gcc.Countrycount" />
+    <input type="hidden" asp-for="@Model.Gcc.LCCCount" />
+    <input type="hidden" asp-for="@Model.Gcc.PGCount" />
+    <table class="table small">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Year</td>
+                <td><select asp-for="@Model.Gcc.Year" asp-items="@Model.YearsSL"></select></td>
+            </tr>
+            <tr>
+                <td>Month</td>
+                <td><select asp-for="@Model.Gcc.Month" asp-items="@Model.MonthsSL"></select></td>
+            </tr>
+            <tr>
+                <td>Migrated?</td>
+                <td><input type="checkbox" asp-for="@Model.Gcc.Migrated" checked="@Model.Gcc.Migrated"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Save"></td>
+            </tr>
+        </tbody>
+    </table>
 
 </form>
 
 <h3>Statistics</h3>
 <table class="table small">
     <tr>
-        <td>Number of countries</td><td><a asp-page="/GccCountries" asp-route-gcc="@Model.Gcc.Gcc">@Model.Gcc.Countrycount</a></td>
+        <td>Number of countries</td>
+        <td><a asp-page="/GccCountries" asp-route-gcc="@Model.Gcc.Gcc">@Model.Gcc.Countrycount</a></td>
     </tr>
     <tr>
-        <td>Number of LCCs</td><td>@Model.Gcc.LCCCount</td>
+        <td>Number of LCCs</td>
+        <td>@Model.Gcc.LCCCount</td>
     </tr>
     <tr>
-        <td>Number of pay groups</td><td>@Model.Gcc.PGCount</td>
+        <td>Number of pay groups</td>
+        <td>@Model.Gcc.PGCount</td>
     </tr>
 </table>
 
