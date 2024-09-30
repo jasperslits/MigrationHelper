@@ -27,10 +27,14 @@
                 <td>@x.Name</td>
                 <td>@x.Countrycount</td>
                 @foreach(var y in @Model.Periods) {
+                    var res = @Model.HasDataInMonth(x.Gcc, y.Year, x.Month, y.Month);
+                    if (res == "nodata") {
+                        <td class="nodata">No data</td>
+                    } else {
+                        <td class="@x"> 
+                        <a asp-page="/GccView" asp-route-gcc="@x.Gcc" asp-route-year="@y.Year" asp-route-month="@y.Month">Calendar</a></td>
+                    }
                 
-                 <td class="@Model.CheckMonth(x.Gcc,y.Year,x.Month,y.Month)"> 
-                    <a asp-page="/GccView" asp-route-gcc="@x.Gcc" asp-route-year="@y.Year" asp-route-month="@y.Month">Calendar</a>
-                </td>
             }
             </tr>
         }

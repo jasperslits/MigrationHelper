@@ -35,25 +35,26 @@ public class PayGroupDetails : PageModel
 
     public string FormatCell(int day, PayPeriod p)
     {
-         if (day == p.CutOff.Day-1 || day == p.CutOff.Day-2) return "Blackout";
+        if (day == p.CutOff.Day - 1 || day == p.CutOff.Day - 2) return "Blackout";
         if (day == p.PayDate.Day) return "Paydate";
         if (day == p.CutOff.Day) return "CutOff";
-       // if (day == p.PCStartDate.Day) return "PYstart";
-      //  if (day == p.PCEndDate.Day) return "PYend";
-  //      if (day == p.PayStartDate.Day) return "PreviewPayroll";
-   //     if (day == p.PayEndDate.Day) return "PreviewCutOff";
-         if (day == p.Payslip.Day) return "Closed";
+        // if (day == p.PCStartDate.Day) return "PYstart";
+        //  if (day == p.PCEndDate.Day) return "PYend";
+        //      if (day == p.PayStartDate.Day) return "PreviewPayroll";
+        //     if (day == p.PayEndDate.Day) return "PreviewCutOff";
+        if (day == p.Payslip.Day) return "Closed";
         if (day >= p.CutOff.Day && day <= p.PayDate.Day) return "Closed";
-        if (day <= p.QueueOpen.Day && p.QueueOpen > p.PCEndDate && p.Frequency == "monthly") {
+        if (day <= p.QueueOpen.Day && p.QueueOpen > p.PCEndDate && p.Frequency == "monthly")
+        {
             return "Closed";
         }
-        
-    
+
+
 
         return "Open";
-      
-      //  if (day > p.Open.Day) return "Open";
-      //  return "Closed";
+
+        //  if (day > p.Open.Day) return "Open";
+        //  return "Closed";
     }
 
     public List<PGD> pgd = [];
@@ -64,34 +65,36 @@ public class PayGroupDetails : PageModel
         Month = month;
         Year = year;
         PGDetails Pd = new(gcc, year, month);
-        //  Helper h = new(gcc,month);
+
         Cal = new Calendar(year, month).Days;
-        var Results = await Pd.GetDetails();
-        foreach(var x in Results) {
-            var res = pgd.Where( y => y.Lcc == x.Lcc && y.PayGroup == x.PayGroup);
-            if (res.Count() == 0) {
+        var results = await Pd.GetDetails();
+        foreach (var x in results)
+        {
+            var res = pgd.Where(y => y.Lcc == x.Lcc && y.PayGroup == x.PayGroup);
+            if (!res.Any())
+            {
                 var copiedCal = new Calendar(year, month).Days;
-                foreach(var day in copiedCal) {
-                    day.Value.Color = FormatCell(day.Key,x);
-                //    Console.WriteLine($"Format {x.Lcc} and pg = {x.PayGroup}, day {day.Key} and color = {day.Value.Color}");
-                }    
+                foreach (var day in copiedCal)
+                {
+                    day.Value.Color = FormatCell(day.Key, x);
+                }
 
-                pgd.Add( new PGD { Lcc = x.Lcc, PayGroup = x.PayGroup, Frequency = x.Frequency, calDays = copiedCal});
-            } else {
+                pgd.Add(new PGD { Lcc = x.Lcc, PayGroup = x.PayGroup, Frequency = x.Frequency, calDays = copiedCal });
+            }
+            else
+            {
                 var first = res.First();
-                foreach(var day in first.calDays) {
-                //    Console.WriteLine($"Before:: Format {x.Lcc} and pg = {x.PayGroup}, day {day.Key} and color = {day.Value.Color}");
-                    if (day.Value.Color == "Open" || day.Value.Color == "Closed") {
-                        day.Value.Color = FormatCell(day.Key,x);
+                foreach (var day in first.calDays)
+                {
+                    if (day.Value.Color == "Open" || day.Value.Color == "Closed")
+                    {
+                        day.Value.Color = FormatCell(day.Key, x);
                     }
-              //      Console.WriteLine($"After:: Format {x.Lcc} and pg = {x.PayGroup}, day {day.Key} and color = {day.Value.Color}");
-                }     
-
-              //  Console.WriteLine($"Found {x.Lcc} and pg = {x.PayGroup}");
+                }
             }
         };
-        Debug.Assert(pgd.Count() >= Gcc.LCCCount, $"{pgd.Count()}  != {Gcc.LCCCount}");
-        FormattedMonth = Toolbox.MonthToName(year,month);
+        Debug.Assert(pgd.Count >= Gcc.LCCCount, $"{pgd.Count}  != {Gcc.LCCCount}");
+        FormattedMonth = Toolbox.MonthToName(year, month);
         var c = Pd.GetCalendar();
     }
 }

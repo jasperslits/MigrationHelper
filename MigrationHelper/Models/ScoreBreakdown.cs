@@ -2,16 +2,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MigrationHelper.Models;
 
-public class ScoreBreakdownMessage {
+public class ScoreBreakdownMessage
+{
 
-    public int Sc {get;set;}
+    public int Sc { get; set; }
 
     public string Message { get; set; }
 }
 
-public class ScoreBreakdown : ScoreBreakdownMessage {
+public class ScoreBreakdown : ScoreBreakdownMessage
+{
 
-    public int ScoreBreakdownId { get; set;}
+    public int ScoreBreakdownId { get; set; }
     [Required]
     public string Gcc { get; set; }
     [Required]

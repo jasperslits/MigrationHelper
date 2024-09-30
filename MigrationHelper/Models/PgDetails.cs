@@ -18,7 +18,7 @@ public class PGDetails(string gcc, int year, int month)
 
     public async Task<List<PayPeriod>> GetDetails()
     {
-        MigHelper mh = new();
+        MigHelper mh = new MigHelper();
         await mh.LoadData(Gcc, Year,Month);
         return mh.pp;
     }

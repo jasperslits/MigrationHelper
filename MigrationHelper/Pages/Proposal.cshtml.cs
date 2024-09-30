@@ -55,13 +55,13 @@ public class ProposalModel(ILogger<ProposalModel> logger, MigHelperCtx context) 
     public async Task OnGet()
     {
         Periods = [];
-        var currentmonth = DateTime.Now;
+        var currentmonth = DateTime.Now.AddDays(2);
 
         _scores = await _context.ScoreCache.Where(x => x.Score > 0).ToListAsync();
         var m = new DateTime(2025,3,1);
         for(int i = 0; i < 8;i++) {
 
-            Periods.Add(new Periods { Year = currentmonth.Year, Month = currentmonth.Month, MonthName = currentmonth.ToString("MMMM yyyy") });
+            Periods.Add(new Periods(currentmonth.ToString("MMMM yyyy")) { Year = currentmonth.Year, Month = currentmonth.Month });
             if (currentmonth.Month == m.Month && currentmonth.Year == m.Year) {
                 break;
             }

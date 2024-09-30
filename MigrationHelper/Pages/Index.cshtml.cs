@@ -26,15 +26,17 @@ public class IndexModel : PageModel
         _context = context;
     }
 
-    public string CheckMonth(string gcc,int year,int month, int currentmonth) {
+    public string HasDataInMonth(string gcc,int year,int migmonth, int currentmonth) {
 
-        if (month == currentmonth) { return "mig"; }
+        if (migmonth == currentmonth) return "mig"; 
 
-        if (year == 2024) return "nomig"; 
+        if (year == 2024) return "nomig";
 
-        var results = _cache.Where(x => x.Gcc == gcc && x.Month == month).Count();
-
-        if (results == 0) { return "nodata"; } else { return "nomig"; };
+        if (_cache.Where(x => x.Gcc == gcc && x.Month == currentmonth).Any()) {
+            return "nomig"; 
+        } else {
+            return "nodata";
+        }
     }
 
  
@@ -42,14 +44,14 @@ public class IndexModel : PageModel
     public async Task OnGet()
     {
         Periods = [];
-        var currentmonth = DateTime.Now;
+        var currentmonth = DateTime.Now.AddDays(2);
 
         _cache =  await _context.PayPeriods.Select(a => new MonthCache { Gcc = a.Gcc, Month = a.CutOff.Month}).Distinct().ToListAsync();
 
         var m = new DateTime(2025,3,1);
         for(int i = 0; i < 8;i++) {
 
-            Periods.Add(new Periods { Year = currentmonth.Year, Month = currentmonth.Month, MonthName = currentmonth.ToString("MMMM yyyy") });
+            Periods.Add(new Periods(currentmonth.ToString("MMMM yyyy")) { Year = currentmonth.Year, Month = currentmonth.Month });
             if (currentmonth.Month == m.Month && currentmonth.Year == m.Year) {
                 break;
             }

@@ -9,7 +9,7 @@ public class CountriesModel : PageModel
     private readonly ILogger<CountriesModel> _logger;
 
 
-    public int DbCount {get;set;}    
+    public int DbCount { get; set; }
 
     public CountriesModel(ILogger<CountriesModel> logger)
     {
@@ -20,8 +20,8 @@ public class CountriesModel : PageModel
     {
         DBLoader db = new();
         DbCount = await db.CountryLoader();
-      
+
 
     }
- 
+
 }
