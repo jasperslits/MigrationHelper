@@ -68,6 +68,7 @@ public class PayGroupDetails : PageModel
 
         Cal = new Calendar(year, month).Days;
         var results = await Pd.GetDetails();
+        results = results.OrderBy(x => x.Lcc).ToList();
         foreach (var x in results)
         {
             var res = pgd.Where(y => y.Lcc == x.Lcc && y.PayGroup == x.PayGroup);
