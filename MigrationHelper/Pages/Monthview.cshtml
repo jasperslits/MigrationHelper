@@ -1,26 +1,32 @@
 ﻿@page
 @model MonthviewModel
 @{
-    ViewData["Title"] = "Home page";
+  ViewData["Title"] = "Home page";
 }
 
 <h2>Overview by month of non-migrated clients</h2>
 
-
-
-@foreach(var x in Model.Res) {
+@foreach (var x in Model.Res)
+{
   <table class="table small">
   <tr>
-    <td colspan="2"><b>@Model.FormatMonth(x.Key)</b></td>
+    <td colspan="2"><h3>@Model.FormatMonth(x.Key)</h3></td>
+  </tr>
+  <tr>
+    <td><b>Gcc</b></td>
+    <td><b>Name</b></td>
   </tr>
 
-  @foreach(var n in x) {
-    <tr>
-      <td>@n.Gcc</td><td>@n.Name</td>
-    </tr>
-  }
- 
-   </table><hr>
+  @foreach (var n in x)
+    {
+      <tr>
+        <td>@n.Gcc</td>
+        <td>@n.Name</td>
+      </tr>
+    }
+
+  </table>
+  <hr>
 }
 
 

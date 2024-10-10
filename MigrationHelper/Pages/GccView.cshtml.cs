@@ -47,19 +47,19 @@ public class GccViewModel : PageModel
     {
         Month = month;
         Year = year;
-        ScoreConfig ScoreConfiguration = _context.ScoreConfig.First();
-        ScoreHelper h = new(ScoreConfiguration,gcc,year,month);
+        ScoreConfig scoreConfiguration = _context.ScoreConfig.First();
+        ScoreHelper h = new(scoreConfiguration,gcc,year,month);
         
-        keyValuePairs.Add("Saturday",ScoreConfiguration.Saturday);
-        keyValuePairs.Add("Sunday",ScoreConfiguration.Sunday);
-        keyValuePairs.Add("Cut-off",ScoreConfiguration.CutOff);
-        keyValuePairs.Add("Cut-off -1",ScoreConfiguration.CutOffBlackout);
-        keyValuePairs.Add("Cut-off -2",ScoreConfiguration.CutOffBlackout);
-        keyValuePairs.Add("Pay date",ScoreConfiguration.PayDate);
-        keyValuePairs.Add("Pay date +1",ScoreConfiguration.NextPayDate);
-        keyValuePairs.Add("Between cutoff and queue open",ScoreConfiguration.BlockedAfterClose);
-        keyValuePairs.Add("Free slot before cut-off",ScoreConfiguration.Free);
-        keyValuePairs.Add("Free slot after cut-off",ScoreConfiguration.FreeAfterClose);
+        keyValuePairs.Add("Saturday",scoreConfiguration.Saturday);
+        keyValuePairs.Add("Sunday",scoreConfiguration.Sunday);
+        keyValuePairs.Add("Cut-off",scoreConfiguration.CutOff);
+        keyValuePairs.Add("Cut-off -1",scoreConfiguration.CutOffBlackout);
+        keyValuePairs.Add("Cut-off -2",scoreConfiguration.CutOffBlackout);
+        keyValuePairs.Add("Pay date",scoreConfiguration.PayDate);
+        keyValuePairs.Add("Pay date +1",scoreConfiguration.NextPayDate);
+        keyValuePairs.Add("Between cutoff and queue open",scoreConfiguration.BlockedAfterClose);
+        keyValuePairs.Add("Free slot before cut-off",scoreConfiguration.Free);
+        keyValuePairs.Add("Free slot after cut-off",scoreConfiguration.FreeAfterClose);
 
         oh = new(h.CalendarDays);
   

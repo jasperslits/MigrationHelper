@@ -90,8 +90,8 @@ public class DBLoader
         }
         await Context.SaveChangesAsync();
 
-        var Gccs = Context.GccNames;
-        foreach (var gcc in Gccs)
+        var cccs = Context.GccNames;
+        foreach (var gcc in cccs)
         {
 
             gcc.LCCCount = Context.PayPeriods.Where(x => x.Gcc == gcc.Gcc).Select(x => x.Lcc).Distinct().Count();

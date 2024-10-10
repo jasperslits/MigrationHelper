@@ -15,6 +15,11 @@ html {
 html {
   position: relative;
   min-height: 100%;
+
+}
+
+h1 {
+  font-weight: 700;
 }
 
 td.amber {
@@ -90,4 +95,5 @@ table.small {
 
 body {
   margin-bottom: 60px;
+  font-family: Aptos, sans-serif;
 }

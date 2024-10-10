@@ -64,10 +64,10 @@ public class PayGroupDetails : PageModel
         Gcc = _context.GccNames.Where(x => x.Gcc == gcc).First(); ;
         Month = month;
         Year = year;
-        PGDetails Pd = new(gcc, year, month);
+        PGDetails pd = new(gcc, year, month);
 
         Cal = new Calendar(year, month).Days;
-        var results = await Pd.GetDetails();
+        var results = await pd.GetDetails();
         results = results.OrderBy(x => x.Lcc).ToList();
         foreach (var x in results)
         {
@@ -96,6 +96,6 @@ public class PayGroupDetails : PageModel
         };
         Debug.Assert(pgd.Count >= Gcc.LCCCount, $"{pgd.Count}  != {Gcc.LCCCount}");
         FormattedMonth = Toolbox.MonthToName(year, month);
-        var c = Pd.GetCalendar();
+        var c = pd.GetCalendar();
     }
 }

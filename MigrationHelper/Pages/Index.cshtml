@@ -5,9 +5,6 @@
 }
 
 <h2>GCC overview</h2>
-
-
-
 <table class="table">
 <thead>
     <tr>
@@ -29,17 +26,15 @@
                 @foreach(var y in @Model.Periods) {
                     var res = @Model.HasDataInMonth(x.Gcc, y.Year, x.Month, y.Month);
                     if (res == "nodata") {
-                        <td class="nodata">No data</td>
+                        <td class="@res">No data</td>
                     } else {
-                        <td class="@x"> 
+                        <td class="@res"> 
                         <a asp-page="/GccView" asp-route-gcc="@x.Gcc" asp-route-year="@y.Year" asp-route-month="@y.Month">Calendar</a></td>
                     }
                 
             }
             </tr>
         }
-
-      
 </tbody>
 
 </table>

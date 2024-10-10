@@ -31,8 +31,8 @@ public class MonthviewModel : PageModel
 
     public void OnGet()
     {
-        var Res2 = _context.GccNames.Where(x => x.Migrated == false).OrderBy(x => x.Gcc);
-        Res = Res2.GroupBy(x => x.Month);
+        var res2 = _context.GccNames.Where(x => x.Migrated == false).OrderBy(x => x.Gcc);
+        Res = res2.GroupBy(x => x.Month);
 
 
     
