@@ -83,7 +83,8 @@ public class DBLoader
         {
 
             var results = await c.ReadPg(fileName);
-            results = results.Where(x => x.Close > ts && x.CutOff > ts && x.Open > ts && x.PayDate > ts).ToList();
+        //    results = results.Where(x => x.Close > ts && x.CutOff > ts && x.Open > ts && x.PayDate > ts).ToList();
+            results = results.Where(x => x.CutOff > ts && x.Open > ts && x.PayDate > ts).ToList();
             await Context.AddRangeAsync(results);
             total += results.Count;
 
