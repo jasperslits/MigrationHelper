@@ -58,7 +58,7 @@ public class ProposalModel(ILogger<ProposalModel> logger, MigHelperCtx context) 
         var currentmonth = DateTime.Now.AddDays(2);
 
         _scores = await _context.ScoreCache.Where(x => x.Score > 0).ToListAsync();
-        var m = new DateTime(2025,3,1);
+        var m = new DateTime(2025,6,1);
         for(int i = 0; i < 8;i++) {
 
             Periods.Add(new Periods(currentmonth.ToString("MMMM yyyy")) { Year = currentmonth.Year, Month = currentmonth.Month });

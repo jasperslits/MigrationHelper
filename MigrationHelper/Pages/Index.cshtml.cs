@@ -48,7 +48,7 @@ public class IndexModel : PageModel
 
         _cache =  await _context.PayPeriods.Select(a => new MonthCache { Gcc = a.Gcc, Month = a.CutOff.Month}).Distinct().ToListAsync();
 
-        var m = new DateTime(2025,3,1);
+        var m = new DateTime(2025,6,1);
         for(int i = 0; i < 8;i++) {
 
             Periods.Add(new Periods(currentmonth.ToString("MMMM yyyy")) { Year = currentmonth.Year, Month = currentmonth.Month });

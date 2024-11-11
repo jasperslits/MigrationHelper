@@ -18,7 +18,7 @@ public class PayGroupDetails : PageModel
 
     public Dictionary<int, CalDay> Cal { get; set; }
 
-
+    public string ErrorMessage { get; set; } = "";
     public string FormattedMonth { get; set; } = "";
 
     public GccNames Gcc { get; set; }
@@ -94,7 +94,10 @@ public class PayGroupDetails : PageModel
                 }
             }
         };
-        Debug.Assert(pgd.Count >= Gcc.LCCCount, $"{pgd.Count}  != {Gcc.LCCCount}");
+     //   Debug.Assert(pgd.Count >= Gcc.LCCCount, $"{pgd.Count}  != {Gcc.LCCCount}");
+        if (pgd.Count < Gcc.LCCCount) {
+            ErrorMessage = $"Only data available for {pgd.Count} out of {Gcc.LCCCount} LCC / pay group combinations";
+        }
         FormattedMonth = Toolbox.MonthToName(year, month);
         var c = pd.GetCalendar();
     }

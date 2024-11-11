@@ -6,6 +6,10 @@
 
 <h2>Payroll calendar for @Model.Gcc.Gcc (@Model.Gcc.Name) in @Model.FormattedMonth</h2>
 
+@if (!String.IsNullOrEmpty(@Model.ErrorMessage)) { 
+   <h3><font color="red">@Model.ErrorMessage</font></h3>
+}
+
 <table class="table">
 <thead>
    <tr>
